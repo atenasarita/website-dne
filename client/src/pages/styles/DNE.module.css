@@ -1,0 +1,23 @@
+.card{
+    background-color: #1c2535;
+    color: #f2ece0;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.mainTitle{
+    font-size: 82px;
+    margin-bottom: 1rem;
+    font-family: 'NeueEinstellung';
+    transition: transform 0.3s ease;
+}
+
+.subtitle{
+    font-size: 20px;
+    opacity: 0.95;
+    font-weight: 400;
+    font-family: 'Space Mono', monospace;
+    color: #68a3ce
+}

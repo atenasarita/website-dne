@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
+import styles from './styles/DNE.module.css'
 
 const dneEvents = [
   { fecha: "Miércoles 8 de abril", evento: "LOOP x Vive Bailando" },
@@ -12,35 +13,21 @@ const dneEvents = [
 function DNE() {
   return (
     <div>
-      {/* Header */}
-      <section style={{
-        background: 'linear-gradient(135deg, #00B4D8 0%, #52B788 100%)',
-        color: 'white',
-        padding: '4rem 1.5rem 3rem',
-        textAlign: 'center'
-      }}>
+
+      <section className={styles.card}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 style={{
-            fontSize: '40px',
-            fontWeight: 500,
-            marginBottom: '1rem'
-          }}>
-            DNE MTY 2026
-          </h1>
-          <p style={{
-            fontSize: '18px',
-            opacity: 0.95,
-            lineHeight: 1.7
-          }}>
+            <h1 className={styles.mainTitle}>
+              DNE MTY 2026
+            </h1>
+          <p className= {styles.subtitle}>
             Día Nacional de Embajadores - Calendario de eventos
           </p>
         </div>
       </section>
 
-      {/* Events List */}
       <section style={{
         padding: '4rem 1.5rem',
-        background: 'var(--color-background-tertiary)'
+        backgroundColor: '#e8e6e0'
       }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div style={{
@@ -49,48 +36,48 @@ function DNE() {
           }}>
             {dneEvents.map((event, index) => (
               <div key={index} style={{
-                background: 'var(--color-background-primary)',
-                borderRadius: 'var(--border-radius-lg)',
+                background: '#f8f8f5',
+                borderRadius: '12px',
                 padding: '1.25rem',
-                border: '0.5px solid var(--color-border-tertiary)',
+                border: '1px solid',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '1rem',
-                transition: 'all 0.2s'
+                transition: 'all 0.2s',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateX(4px)';
-                e.currentTarget.style.borderColor = 'var(--color-border-info)';
+                e.currentTarget.style.borderColor = '#c69a6d';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateX(0)';
-                e.currentTarget.style.borderColor = 'var(--color-border-tertiary)';
+                e.currentTarget.style.borderColor = '#e8e6e0';
               }}
               >
                 <div style={{
                   width: '48px',
                   height: '48px',
-                  borderRadius: 'var(--border-radius-md)',
-                  background: 'var(--color-background-info)',
+                  borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0
                 }}>
-                  <Calendar size={24} color="var(--color-text-info)" />
+                  <Calendar size={24} color="#1d3a5d" />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{
                     fontSize: '14px',
-                    color: 'var(--color-text-secondary)',
-                    marginBottom: '4px'
+                    color: '#1d3a5d',
+                    marginBottom: '4px',
+                    fontFamily: 'NeueEinstellung'
                   }}>
                     {event.fecha}
                   </div>
                   <div style={{
                     fontSize: '16px',
                     fontWeight: 500,
-                    color: 'var(--color-text-primary)'
+                    color: '#696c6f'
                   }}>
                     {event.evento}
                   </div>
@@ -101,10 +88,9 @@ function DNE() {
         </div>
       </section>
 
-      {/* Additional Info */}
       <section style={{
         padding: '4rem 1.5rem',
-        background: 'var(--color-background-primary)'
+        background: 'aquamarine'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{

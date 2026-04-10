@@ -1,0 +1,40 @@
+.card{
+    background: #c69a6d;
+    color: #5e3f1d;
+    padding: 1rem 1rem;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.mainTitle{
+    font-size: 82px;
+    margin-bottom: 1rem;
+    font-family: 'NeueEinstellung';
+    transition: transform 0.3s ease;
+}
+
+.subtitle{
+    font-size: 20px;
+    opacity: 0.95;
+    font-weight: 400;
+    font-family: 'Space Mono', monospace;
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+.image {
+  width: 50%;
+  max-width: 800px;
+  height: auto;
+  object-fit: cover;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
