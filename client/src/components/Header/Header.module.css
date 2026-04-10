@@ -1,0 +1,136 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 0.5px solid #111111;
+  background-color: rgba(245, 238, 226, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+/* LOGO */
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* DESKTOP NAV */
+.desktopNav {
+  display: none;
+  gap: 2rem;
+}
+
+.navLink {
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  color: #445473;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.25s ease, transform 0.2s ease;
+}
+
+.navLink:hover {
+  color: #111111;
+  transform: translateY(-1px);
+}
+
+/* underline animation */
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #111111;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* ACTIVE LINK */
+.active {
+  color: #111111;
+}
+
+.active::after {
+  width: 100%;
+}
+
+/* MOBILE BUTTON */
+.mobileBtn {
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* MOBILE MENU */
+.mobileMenu {
+  background: white;
+  border-top: 0.5px solid #ddd;
+  padding: 1rem;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobileLink {
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #445473;
+  transition: all 0.2s;
+}
+
+.mobileLink:hover {
+  background: #f5f5f5;
+}
+
+.mobileActive {
+  background: #f0f0f0;
+  color: #111111;
+}
+
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .mobileBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobileBtn {
+    display: block;
+  }
+}
