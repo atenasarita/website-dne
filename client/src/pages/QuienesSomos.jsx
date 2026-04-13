@@ -54,12 +54,12 @@ function QuienesSomos() {
       : embajadores.filter(e => e.escuela === filtroEscuela);
 
   useEffect(() => {
-    // 🔥 HERO FADE IN (igual que Inicio)
+    // HERO
     setTimeout(() => {
       setIsVisible(prev => ({ ...prev, hero: true }));
     }, 100);
 
-    // Intersection Observer
+    // OBSERVER
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -67,7 +67,7 @@ function QuienesSomos() {
           setIsVisible(prev => ({ ...prev, [section]: true }));
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
 
@@ -116,9 +116,7 @@ function QuienesSomos() {
             className={`${styles.subtitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
             style={{ animationDelay: '0.3s' }}
           >
-            Hola! Somos los Embajadores Tec del Campus Monterrey de la onceava generación.
-            Estamos muy emocionados de compartir contigo un poco más sobre nosotros y nuestro
-            proyecto del Día Nacional de Embajadores 2026.
+            Hola! Somos los Embajadores Tec del Campus Monterrey de la onceava generación. Estamos muy emocionados de compartir contigo un poco más sobre nosotros y nuestro proyecto del Día Nacional de Embajadores 2026.
           </p>
 
         </div>
@@ -127,28 +125,69 @@ function QuienesSomos() {
       {/* PROYECTO */}
       <section style={{ padding: '4rem 0.5rem' }} data-section="proyecto">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 className={`${styles.heading2} ${isVisible.proyecto ? styles.slideInLeft : styles.hiddenLeft}`}>
+          
+          <h2
+              className={`${styles.heading2} ${isVisible.proyecto ? styles.slideInLeft : styles.hiddenLeft}`}
+              style={{ animationDelay: '0.1s' }}>
             Embajadores Tec x Ruta Azul: Loop Tec
           </h2>
 
-          <p className={`${styles.bodyText} ${isVisible.proyecto ? styles.fadeIn : styles.hidden}`} style={{ animationDelay: '0.2s' }}>
-            Este año estamos colaborando con Ruta Azul para darle difusión a RECICLATEC...
+          <p  
+            className={`${styles.bodyText} ${isVisible.proyecto ? styles.slideInLeft : styles.hiddenLeftn}`}
+            style={{ animationDelay: '0.2s' }}
+          >
+            Este año estamos colaborando con Ruta Azul para darle difusión a RECICLATEC:
+            un evento de reciclaje que se llevará a cabo el 22 de abril, donde podrás
+            entregar tus residuos para que reciban el tratamiento adecuado.
+            <br /><br />
+            Nuestra misión es concientizar a toda la comunidad Tec sobre la importancia
+            de reciclar y cómo esto beneficia a nuestro planeta. Cuidar el medio ambiente
+            es algo que nos apasiona profundamente, y esperamos que ese mensaje se traduzca
+            en una gran participación. ¡Te esperamos el 22 de abril!
           </p>
+
         </div>
       </section>
 
       {/* IMAGEN */}
       <section data-section="imagen" style={{ padding: '0 1.5rem 4rem' }}>
-        <div className={`${styles.imageContainer} ${isVisible.imagen ? styles.scaleIn : styles.hiddenScale}`}>
+        <div
+          className={`${styles.imageContainer} ${isVisible.imagen ? styles.scaleIn : styles.hiddenScale}`}
+          style={{ animationDelay: '0.2s' }}
+        >
           <img src={Embajadores} alt="Embajadores" className={styles.image} />
         </div>
       </section>
 
       {/* CARRUSEL */}
-      <section style={{ padding: '3rem 0', backgroundColor: '#f5eee2' }} data-section="embajadores">
-        <div className={`${isVisible.embajadores ? styles.fadeInUp : styles.hidden}`} style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          
-          <SparksCarousel
+      <section
+        style={{ padding: '3rem 0', backgroundColor: '#f5eee2' }}
+        data-section="embajadores"
+      >
+        <div
+          className={`${isVisible.embajadores ? styles.fadeInUp : styles.hidden}`}
+          style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            animationDelay: '0.2s'
+          }}
+        >
+
+          {/* 🔥 Header con animación */}
+          <div
+            className={isVisible.embajadores ? styles.fadeInUp : styles.hidden}
+            style={{
+              textAlign: 'center',
+              marginBottom: '1.5rem',
+              animationDelay: '0.3s'
+            }}
+          >
+
+          <div
+            className={isVisible.embajadores ? styles.fadeInUp : styles.hidden}
+            style={{ animationDelay: '0.4s' }}
+          >
+            <SparksCarousel
             title="Conoce a los Embajadores!"
             subtitle="Filtra para conocer a los embajadores de cada escuela"
             headerExtra={
@@ -166,7 +205,9 @@ function QuienesSomos() {
               instagram: e.instagram,
             }))}
           />
+          </div>
 
+        </div>
         </div>
       </section>
     </div>
