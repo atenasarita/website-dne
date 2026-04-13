@@ -1,81 +1,72 @@
 import React from 'react';
 import { ExternalLink, Leaf, Target, Users, TrendingUp } from 'lucide-react';
+import styles from './styles/RutaAzul.module.css';
 
 function RutaAzul() {
   return (
     <div>
-      {/* Header */}
-      <section style={{
-        background: 'linear-gradient(135deg, #0055A4 0%, #00B4D8 100%)',
-        color: 'white',
-        padding: '4rem 1.5rem 3rem',
-        textAlign: 'center'
-      }}>
+      {/* Header - styled like Inicio */}
+      <section
+        className={styles.card}
+      >
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 style={{
-            fontSize: '40px',
-            fontWeight: 500,
-            marginBottom: '1rem'
-          }}>
+          <h1 className={styles.mainTitle}>
             Ruta Azul
           </h1>
-          <p style={{
-            fontSize: '18px',
-            opacity: 0.95,
-            lineHeight: 1.7
-          }}>
+          <p className={styles.subtitle}>
             Plan de Sostenibilidad y Cambio Climático al 2025
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section style={{
-        padding: '4rem 1.5rem',
-        background: 'var(--color-backgroun-tertiary)'
-      }}>
+      <section style={{ padding: '4rem 1.5rem', background: 'var(--color-backgroun-tertiary)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{
-            background: 'var(--color-background-primary)',
-            borderRadius: 'var(--border-radius-lg)',
-            padding: '2rem',
-            border: '0.5px solid var(--color-border-tertiary)',
-            marginBottom: '2rem'
-          }}>
-            <h2 style={{
-              fontSize: '24px',
-              fontWeight: 500,
-              marginBottom: '1rem'
-            }}>
+          <div
+            style={{marginBottom: '6rem'
+            }}
+          >
+            <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>
               ¿Qué es Ruta Azul?
             </h2>
-            <p style={{
-              fontSize: '17px',
-              lineHeight: 1.7,
-              color: 'var(--color-text-secondary)',
-              marginBottom: '1rem'
-            }}>
-              Ruta Azul es el nombre de nuestro Plan de Sostenibilidad y Cambio Climático al 2025.
-              Es el camino que hemos trazado para lograr un futuro sostenible y convertirnos en
+            <p className={styles.bodyText} style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)' }}>
+              Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.
+              Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en
               una institución modelo de sostenibilidad.
             </p>
-            <p style={{
-              fontSize: '17px',
-              lineHeight: 1.7,
-              color: 'var(--color-text-secondary)'
-            }}>
+            <p className={styles.bodyText} style={{ color: 'var(--color-text-secondary)' }}>
               El rumbo es claro: trabajamos juntos para crear un impacto positivo en nuestra comunidad
               y en el medio ambiente.
             </p>
+
           </div>
 
+        </div>
+
+          <section style={{
+          background: '#f5eee2',
+          padding: '2rem', 
+          borderRadius: '12px',
+          maxWidth: '1000px',
+          margin: '0 auto',
+          }}> 
+
+          <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>
+              Conoce los ejes de acción estratégica de Ruta Azul
+          </h2>
+
           {/* Key Pillars */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '3rem'
-          }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '1.5rem',
+              marginBottom: '3rem',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              marginTop: '1rem'
+            }}
+          >
             <PillarCard
               icon={<Leaf size={28} />}
               title="Sostenibilidad"
@@ -100,30 +91,36 @@ function RutaAzul() {
               description="Medimos y mejoramos continuamente nuestros resultados"
               color="var(--color-text-danger)"
             />
+            <PillarCard
+              icon={<TrendingUp size={28} />}
+              title="Impacto"
+              description="Medimos y mejoramos continuamente nuestros resultados"
+              color="var(--color-text-danger)"
+            />
+            <PillarCard
+              icon={<TrendingUp size={28} />}
+              title="Impacto"
+              description="Medimos y mejoramos continuamente nuestros resultados"
+              color="var(--color-text-danger)"
+            />
           </div>
 
-          {/* CTA */}
-          <div style={{
-            background: 'var(--color-background-info)',
-            borderRadius: 'var(--border-radius-lg)',
-            padding: '2rem',
-            textAlign: 'center',
-            border: '0.5px solid var(--color-border-info)'
-          }}>
-            <h3 style={{
-              fontSize: '22px',
-              fontWeight: 500,
-              marginBottom: '1rem',
-              color: 'var(--color-text-info)'
-            }}>
+          </section>
+
+          {/* CTA - use linkButton style from Inicio.module.css */}
+          <div
+            style={{
+              background: 'var(--color-background-info)',
+              borderRadius: 'var(--border-radius-lg)',
+              padding: '2rem',
+              textAlign: 'center',
+              border: '0.5px solid var(--color-border-info)',
+            }}
+          >
+            <h3 className={styles.heading3} style={{ marginBottom: '1rem', color: 'var(--color-text-info)' }}>
               Conoce más sobre Ruta Azul
             </h3>
-            <p style={{
-              fontSize: '16px',
-              lineHeight: 1.7,
-              color: 'var(--color-text-info)',
-              marginBottom: '1.5rem'
-            }}>
+            <p className={styles.bodyText} style={{ color: 'var(--color-text-info)', marginBottom: '1.5rem' }}>
               Visita el sitio oficial para conocer a detalle nuestras iniciativas y compromisos
               de sostenibilidad.
             </p>
@@ -131,71 +128,100 @@ function RutaAzul() {
               href="https://tec.mx/es/florecimiento-humano/desarrollo-sostenible/ruta-azul?srsltid=AfmBOoqjtj5iMyqJZitSh96kh6US4m0vuHVtK3A8XoUk5R0ztILQbEcE"
               target="_blank"
               rel="noopener noreferrer"
+              className={styles.linkButton}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '12px 24px',
-                background: 'var(--color-background-primary)',
                 border: '0.5px solid var(--color-border-info)',
-                borderRadius: 'var(--border-radius-lg)',
-                fontSize: '16px',
-                fontWeight: 500,
                 color: 'var(--color-text-info)',
                 textDecoration: 'none',
                 transition: 'all 0.2s'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
             >
               Visitar sitio oficial
               <ExternalLink size={16} />
             </a>
           </div>
-        </div>
       </section>
     </div>
   );
 }
 
-function PillarCard({ icon, title, description, color }) {
+function PillarCard({ icon, title, description, color, delay = "0s", isVisible = true }) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
   return (
-    <div style={{
-      background: 'var(--color-background-primary)',
-      borderRadius: 'var(--border-radius-lg)',
-      padding: '1.5rem',
-      border: '0.5px solid var(--color-border-tertiary)',
-      transition: 'all 0.2s'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.transform = 'translateY(-4px)';
-      e.currentTarget.style.borderColor = color;
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.transform = 'translateY(0)';
-      e.currentTarget.style.borderColor = 'var(--color-border-tertiary)';
-    }}
+    <div
+      className={isVisible ? styles.cardSlideUp : styles.hiddenDown}
+      style={{
+        background: '#1c3a5e',
+        borderRadius: '12px',
+        padding: '1.5rem',
+        border: '0.5px solid var(--color-border-tertiary)',
+        display: 'block',
+        animationDelay: delay,
+
+        // ✨ animación hover
+        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: isHovered
+          ? '0 12px 24px rgba(28, 58, 94, 0.25)'
+          : '0 2px 8px rgba(0,0,0,0.1)',
+
+        cursor: 'pointer',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div style={{ color, marginBottom: '1rem' }}>
+
+      {/* ICON */}
+      <div
+        style={{
+          width: '48px',
+          height: '48px',
+          borderRadius: '10px',
+          background: color,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+
+          transform: isHovered ? 'rotate(10deg) scale(1.1)' : 'rotate(0) scale(1)',
+          transition: 'transform 0.3s ease',
+        }}
+      >
         {icon}
       </div>
-      <h3 style={{
-        fontSize: '18px',
-        fontWeight: 500,
-        marginBottom: '0.5rem'
-      }}>
+
+      {/* TITLE */}
+      <h3
+        style={{
+          fontSize: '20px',
+          fontWeight: 500,
+          marginBottom: '0.5rem',
+          color: '#5ca3d9',
+          fontFamily: 'NeueEinstellung',
+
+          transform: isHovered ? 'translateX(5px)' : 'translateX(0)',
+          transition: 'transform 0.3s ease',
+        }}
+      >
         {title}
       </h3>
-      <p style={{
-        fontSize: '14px',
-        color: 'var(--color-text-secondary)',
-        lineHeight: 1.6,
-        margin: 0
-      }}>
+
+      {/* DESCRIPTION */}
+      <p
+        style={{
+          fontFamily: 'Space Mono',
+          fontSize: '14px',
+          color: '#f8f8f5',
+          lineHeight: 1.6,
+          margin: 0,
+        }}
+      >
         {description}
       </p>
     </div>
