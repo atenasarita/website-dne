@@ -1,128 +1,174 @@
-import React from 'react';
-import { ExternalLink } from 'lucide-react';
-import styles from './styles/QuienesSomos.module.css'
-import Embajadores from '../foto-embajadores.jpeg'
+import React, { useEffect, useState } from 'react';
+import SparksCarousel from '../components/SparksCarousel';
+import FiltroEscuela from '../components/FiltroEscuela';
+
+import styles from './styles/QuienesSomos.module.css';
+import Embajadores from '../../src/foto-embajadores.jpeg';
 
 const embajadores = [
-  { nombre: "Adrian Marcelo Sanchez Elizondo", carrera: "MO", instagram: "adrianm.embajadorestec" },
-  { nombre: "Ana Camila Norzagaray García", carrera: "LTP-LRI", instagram: "anacam.embajadorestec" },
-  { nombre: "Ana María González Gómez", carrera: "LIT", instagram: "anama.embajadorestec" },
-  { nombre: "Andrés Martínez Medina", carrera: "BGB", instagram: "andresm.embajadorestec" },
-  { nombre: "Astrid Valenzuela Sandoval", carrera: "IQ", instagram: "astridv.embajadorestec" },
-  { nombre: "Aurelio Guillermo Valdés Méndez", carrera: "LTP-LEC", instagram: "guillermo.embajadorestec" },
-  { nombre: "Atenas Lucía Arita García", carrera: "ITC", instagram: "atenas.embajadorestec" },
-  { nombre: "Camila Victoria Romero Chávez", carrera: "LEI", instagram: "camii.embajadorestec" },
-  { nombre: "Daniel Robles Pineda", carrera: "MC", instagram: "danielr.embajadorestec" },
-  { nombre: "Daniela Guadalupe Valdez Gutiérrez", carrera: "LEM", instagram: "danyvaldez.embajadorestec" },
-  { nombre: "Eduardo Eugenio Garza Escamilla", carrera: "LAET", instagram: "laloo.embajadorestec" },
-  { nombre: "Enmanuel Rivas Barinas", carrera: "ITC", instagram: "enmanuel.embajadorestec" },
-  { nombre: "Francisco Javier Acosta Noriega", carrera: "LPS", instagram: "paco.embajadorestec" },
-  { nombre: "Iztac Rubén Olvera Cámara", carrera: "LEI", instagram: "rubenn.embajadorestec" },
-  { nombre: "Johemi García Ortega", carrera: "IMD", instagram: "jojo.embajadorestec" },
-  { nombre: "Jorge Andrés del Carpio Paz", carrera: "LBC", instagram: "jorgedc.embajadorestec" },
-  { nombre: "José Eduardo López Arzamendi", carrera: "LEC", instagram: "josel.embajadorestec" },
-  { nombre: "Julio Jose Arregui Escobal", carrera: "IDS", instagram: "julioa.embajadorestec" },
-  { nombre: "Karol Marissa Piñeiro Galván", carrera: "LPS", instagram: "karol.embajadorestec" },
-  { nombre: "Melina Guajardo Gaytán", carrera: "ARQ", instagram: "melina.embajadorestec" },
-  { nombre: "Mariana Cabrera Ramirez", carrera: "IID", instagram: "cabrera.embajadorestec" },
-  { nombre: "Mara Estefanía Torres García", carrera: "IQ", instagram: "mara.embajadorestec" },
-  { nombre: "Michelle Contreras Escalante", carrera: "LED-LEC", instagram: "michelle.ce.embajadorestec" },
-  { nombre: "Mililani Guadalupe Varela Lugardo", carrera: "IFI", instagram: "mili.embajadorestec" },
-  { nombre: "Nancy Lorena Marroquín Rodríguez", carrera: "LIT", instagram: "nancy.embajadorestec" },
-  { nombre: "Samuel David Garrido Escobar", carrera: "IM", instagram: "samuelg.embajadorestec" }
+  { nombre: "Adrian Marcelo Sanchez Elizondo", carrera: "MO", instagram: "adrianm.embajadorestec", escuela: "Escuela de Medicina y Ciencias de la Salud"},
+  { nombre: "Ana Camila Norzagaray García", carrera: "LTP-LRI", instagram: "anacam.embajadorestec", escuela: "Escuela de Ciencias Sociales y Gobierno" },
+  { nombre: "Ana María González Gómez", carrera: "LIT", instagram: "anama.embajadorestec", escuela: "Escuela de Negocios"},
+  { nombre: "Andrés Martínez Medina", carrera: "BGB", instagram: "andresm.embajadorestec", escuela: "Escuela de Negocios" },
+  { nombre: "Astrid Valenzuela Sandoval", carrera: "IQ", instagram: "astridv.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Aurelio Guillermo Valdés Méndez", carrera: "LTP-LEC", instagram: "guillermo.embajadorestec", escuela: "Escuela de Ciencias Sociales y Gobierno" },
+  { nombre: "Atenas Lucía Arita García", carrera: "ITC", instagram: "atenas.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias"},
+  { nombre: "Camila Victoria Romero Chávez", carrera: "LEI", instagram: "camii.embajadorestec", escuela: "Escuela de Humanidades y Educación"},
+  { nombre: "Daniel Robles Pineda", carrera: "MC", instagram: "danielr.embajadorestec", escuela: "Escuela de Medicina y Ciencias de la Salud" },
+  { nombre: "Daniela Guadalupe Valdez Gutiérrez", carrera: "LEM", instagram: "danyvaldez.embajadorestec", escuela: "Escuela de Negocios" },
+  { nombre: "Eduardo Eugenio Garza Escamilla", carrera: "LAET", instagram: "laloo.embajadorestec", escuela: "Escuela de Negocios" },
+  { nombre: "Enmanuel Rivas Barinas", carrera: "ITC", instagram: "enmanuel.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Francisco Javier Acosta Noriega", carrera: "LPS", instagram: "paco.embajadorestec", escuela: "Escuela de Medicina y Ciencias de la Salud" },
+  { nombre: "Iztac Rubén Olvera Cámara", carrera: "LEI", instagram: "rubenn.embajadorestec", escuela: "Escuela de Humanidades y Educación"},
+  { nombre: "Johemi García Ortega", carrera: "IMD", instagram: "jojo.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Jorge Andrés del Carpio Paz", carrera: "LBC", instagram: "jorgedc.embajadorestec", escuela: "Escuela de Medicina y Ciencias de la Salud" },
+  { nombre: "José Eduardo López Arzamendi", carrera: "LEC", instagram: "josel.embajadorestec", escuela: "Escuela de Ciencias Sociales y Gobierno" },
+  { nombre: "Julio Jose Arregui Escobal", carrera: "IDS", instagram: "julioa.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Karol Marissa Piñeiro Galván", carrera: "LPS", instagram: "karol.embajadorestec", escuela: "Escuela de Medicina y Ciencias de la Salud" },
+  { nombre: "Melina Guajardo Gaytán", carrera: "ARQ", instagram: "melina.embajadorestec", escuela: "Escuela de Arquitectura, Arte y Diseño"},
+  { nombre: "Mariana Cabrera Ramirez", carrera: "IID", instagram: "cabrera.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Mara Estefanía Torres García", carrera: "IQ", instagram: "mara.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Michelle Contreras Escalante", carrera: "LED-LEC", instagram: "michelle.ce.embajadorestec", escuela: "Escuela de Ciencias Sociales y Gobierno" },
+  { nombre: "Mililani Guadalupe Varela Lugardo", carrera: "IFI", instagram: "mili.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" },
+  { nombre: "Nancy Lorena Marroquín Rodríguez", carrera: "LIT", instagram: "nancy.embajadorestec", escuela: "Escuela de Negocios" },
+  { nombre: "Samuel David Garrido Escobar", carrera: "IM", instagram: "samuelg.embajadorestec", escuela: "Escuela de Ingeniería y Ciencias" }
 ];
 
 function QuienesSomos() {
+  const [filtroEscuela, setFiltroEscuela] = useState("Todas");
+  const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const [isVisible, setIsVisible] = useState({
+    hero: false,
+    proyecto: false,
+    imagen: false,
+    embajadores: false,
+  });
+
+  const escuelas = ["Todas", ...new Set(embajadores.map(e => e.escuela))];
+
+  const embajadoresFiltrados =
+    filtroEscuela === "Todas"
+      ? embajadores
+      : embajadores.filter(e => e.escuela === filtroEscuela);
+
+  useEffect(() => {
+    // 🔥 HERO FADE IN (igual que Inicio)
+    setTimeout(() => {
+      setIsVisible(prev => ({ ...prev, hero: true }));
+    }, 100);
+
+    // Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target.getAttribute('data-section');
+          setIsVisible(prev => ({ ...prev, [section]: true }));
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+
+    const handleScroll = () => setScrollY(window.scrollY);
+
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX - window.innerWidth / 2) / 50,
+        y: (e.clientY - window.innerHeight / 2) / 50,
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <div>
-        <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
-      
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className={styles.mainTitle}>
+      {/* HERO */}
+      <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10,
+          transform: `translateY(${scrollY * 0.3}px)`
+        }}>
+
+          <h1
+            className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
+            style={{
+              animationDelay: '0.1s',
+              transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`
+            }}
+          >
             ¿Quiénes somos?
           </h1>
 
-           <div className={styles.imageContainer}>
-        <img 
-          src={Embajadores}
-          alt="Onceava Generacion de Embajadores"
-          className={styles.image}
-        />
-      </div>
-          <p className= {styles.subtitle}>
-            Somos los Embajadores del Tec Campus Monterrey de la onceava generación. Este año, estamos colaborando con Ruta Azul para darle difusión a RECICLATEC, para así poder juntar y darle el debido tratamiento a tus residuos. 
+          <p
+            className={`${styles.subtitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
+            style={{ animationDelay: '0.3s' }}
+          >
+            Hola! Somos los Embajadores Tec del Campus Monterrey de la onceava generación.
+            Estamos muy emocionados de compartir contigo un poco más sobre nosotros y nuestro
+            proyecto del Día Nacional de Embajadores 2026.
+          </p>
+
+        </div>
+      </section>
+
+      {/* PROYECTO */}
+      <section style={{ padding: '4rem 0.5rem' }} data-section="proyecto">
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 className={`${styles.heading2} ${isVisible.proyecto ? styles.slideInLeft : styles.hiddenLeft}`}>
+            Embajadores Tec x Ruta Azul: Loop Tec
+          </h2>
+
+          <p className={`${styles.bodyText} ${isVisible.proyecto ? styles.fadeIn : styles.hidden}`} style={{ animationDelay: '0.2s' }}>
+            Este año estamos colaborando con Ruta Azul para darle difusión a RECICLATEC...
           </p>
         </div>
-
       </section>
 
-      
-
-      {/*  tabla de embajadores */}
-      <section style={{
-        padding: '4rem 1rem'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: '1rem'
-          }}>
-            {embajadores.map((embajador, index) => (
-              <div key={index} style={{
-                background: '#fafaf8',
-                padding: '1rem',
-                transition: 'all 0.2s',
-                fontFamily: 'DM Sans'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-              >
-                <div style={{
-                  fontWeight: 500,
-                  fontSize: '14px',
-                  marginBottom: '4px',
-                  color: '#203b5d',
-                  fontFamily: 'NeueEinstellung'
-                }}>
-                  {embajador.nombre}
-                </div>
-                <div style={{
-                  fontSize: '13px',
-                  color: '#2e6da4',
-                  marginBottom: '8px'
-                }}>
-                  {embajador.carrera}
-                </div>
-                <a
-                  href={`https://instagram.com/${embajador.instagram}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontSize: '13px',
-                    color: '#829bb3',
-                    textDecoration: 'none'
-                  }}
-                >
-                  @{embajador.instagram}
-                  <ExternalLink size={12} />
-                </a>
-              </div>
-            ))}
-          </div>
+      {/* IMAGEN */}
+      <section data-section="imagen" style={{ padding: '0 1.5rem 4rem' }}>
+        <div className={`${styles.imageContainer} ${isVisible.imagen ? styles.scaleIn : styles.hiddenScale}`}>
+          <img src={Embajadores} alt="Embajadores" className={styles.image} />
         </div>
       </section>
 
-     
+      {/* CARRUSEL */}
+      <section style={{ padding: '3rem 0', backgroundColor: '#f5eee2' }} data-section="embajadores">
+        <div className={`${isVisible.embajadores ? styles.fadeInUp : styles.hidden}`} style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          
+          <SparksCarousel
+            title="Conoce a los Embajadores!"
+            subtitle="Filtra para conocer a los embajadores de cada escuela"
+            headerExtra={
+              <FiltroEscuela
+                escuelas={escuelas}
+                value={filtroEscuela}
+                onChange={setFiltroEscuela}
+              />
+            }
+            items={embajadoresFiltrados.map((e, i) => ({
+              id: i,
+              title: e.nombre,
+              count: i + 1,
+              countLabel: e.carrera,
+              instagram: e.instagram,
+            }))}
+          />
+
+        </div>
+      </section>
     </div>
   );
 }

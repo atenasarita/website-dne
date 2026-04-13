@@ -1,21 +1,22 @@
 .card{
     background: #c69a6d;
     color: #5e3f1d;
-    padding: 1rem 1rem;
+    padding: 3rem 1rem;
     text-align: center;
     overflow: hidden;
     position: relative;
+    margin-bottom: 3rem;;
 }
 
 .mainTitle{
-    font-size: 82px;
+    font-size: 74px;
     margin-bottom: 1rem;
     font-family: 'NeueEinstellung';
     transition: transform 0.3s ease;
 }
 
 .subtitle{
-    font-size: 20px;
+    font-size: 18px;
     opacity: 0.95;
     font-weight: 400;
     font-family: 'Space Mono', monospace;
@@ -25,16 +26,30 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 0 1.5rem;
 }
 
 .image {
-  width: 50%;
+  width: 30%;
   max-width: 800px;
   height: auto;
   object-fit: cover;
+  border-radius: 1rem;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.heading2{
+    font-family: 'NeueEinstellung';
+    font-size: 28px;
+    margin-bottom: 1rem;
+    color: #0f1829;
+}
+
+.bodyText{
+    font-size: 17px;
+    line-height: 1.7;
+    color: #25262b;
+    margin-bottom: 2rem;
+    font-family: 'DM Sans', sans-serif;
+}

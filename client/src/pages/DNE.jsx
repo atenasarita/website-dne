@@ -3,108 +3,229 @@ import { Calendar } from 'lucide-react';
 import styles from './styles/DNE.module.css'
 
 const dneEvents = [
-  { fecha: "Miércoles 8 de abril", evento: "LOOP x Vive Bailando" },
-  { fecha: "Domingo 12 de abril", evento: "LOOP x Casa Monarca" },
-  { fecha: "Martes 14 de abril", evento: "Conversatorio de estudiantes para estudiantes" },
-  { fecha: "Lunes 20 de abril", evento: "Conversatorio con Expertos" },
-  { fecha: "Miércoles 22 de abril", evento: "Reciclatec" }
+  { 
+    fecha: "Miércoles 8 de abril", 
+    evento: "LOOP x Vive Bailando",
+    descripcion: "Evento enfocado en activación física y comunidad.",
+    lugar: "Jardin de Experiencias - Parque Central"
+  },
+  { 
+    fecha: "Domingo 12 de abril", 
+    evento: "LOOP x Casa Monarca",
+    descripcion: "Apoyo social a comunidades migrantes.",
+    lugar: "Casa Monarca"
+  },
+  { 
+    fecha: "Viernes 17 de abril", 
+    evento: "NOMBRE PREGUNTAR A LOGISTICA",
+    descripcion: "PEDIR A LOGISTICA",
+    lugar: "Aulas 4 - De 4 a 6 PM"
+  },
+  { 
+    fecha: "Miércoles 22 de abril", 
+    evento: "Reciclatec",
+    descripcion: "PEDIR A LOGISTICA",
+    lugar: "Pasillo DAF - "
+  }
 ];
 
-function DNE() {
-  return (
-    <div>
 
+function DNE() {
+  const [openIndex, setOpenIndex] = React.useState(null);
+  const [isVisible, setIsVisible] = React.useState({
+    events: false,
+  });
+
+  const [showHero, setShowHero] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = entry.target.getAttribute('data-section');
+            setIsVisible(prev => ({ ...prev, [section]: true }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('[data-section]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setShowHero(true);
+    }, 100);
+  }, []);
+
+  return (
+
+    
+    <div style={{
+        backgroundColor: '#e8e6e0'
+      }}>
       <section className={styles.card}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <h1 className={styles.mainTitle}>
+            <h1
+              className={`${styles.mainTitle} ${
+                showHero ? styles.fadeInUp : styles.hidden
+              }`}
+              style={{ animationDelay: '0.1s' }}
+            >
               DNE MTY 2026
             </h1>
-          <p className= {styles.subtitle}>
-            Día Nacional de Embajadores - Calendario de eventos
-          </p>
+            <p
+              className={`${styles.subtitle} ${
+                showHero ? styles.fadeInUp : styles.hidden
+              }`}
+              style={{ animationDelay: '0.3s' }}
+              >
+              Día Nacional de Embajadores - Calendario de eventos
+            </p>
         </div>
       </section>
 
       <section style={{
         padding: '4rem 1.5rem',
-        backgroundColor: '#e8e6e0'
-      }}>
+      }} data-section="events" >
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',
             gap: '1rem'
           }}>
-            {dneEvents.map((event, index) => (
-              <div key={index} style={{
-                background: '#f8f8f5',
-                borderRadius: '12px',
-                padding: '1.25rem',
-                border: '1px solid',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateX(4px)';
-                e.currentTarget.style.borderColor = '#c69a6d';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateX(0)';
-                e.currentTarget.style.borderColor = '#e8e6e0';
-              }}
-              >
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0
-                }}>
-                  <Calendar size={24} color="#1d3a5d" />
-                </div>
-                <div style={{ flex: 1 }}>
+            {dneEvents.map((event, index) => {
+              const isOpen = openIndex === index;
+
+              return (
+                <div
+                    key={index}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className={isVisible.events ? styles.fadeInUp : styles.hidden}
+                    style={{
+                      animationDelay: `${index * 0.1}s`,
+
+                      background: '#f8f8f5',
+                      borderRadius: '12px',
+                      padding: '1.25rem',
+                      border: '1px solid',
+                      borderColor: isOpen ? '#c69a6d' : '#e8e6e0',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.75rem',
+                      cursor: 'pointer',
+
+                      transform: isOpen ? 'scale(1.01)' : 'scale(1)',
+                      boxShadow: isOpen 
+                        ? '0 8px 25px rgba(0,0,0,0.08)' 
+                        : '0 2px 6px rgba(0,0,0,0.04)',
+
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  >
+                  {/* Header */}
                   <div style={{
-                    fontSize: '14px',
-                    color: '#1d3a5d',
-                    marginBottom: '4px',
-                    fontFamily: 'NeueEinstellung'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem'
                   }}>
-                    {event.fecha}
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      <Calendar size={24} color="#1d3a5d" />
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#1d3a5d',
+                        marginBottom: '4px',
+                        fontFamily: 'NeueEinstellung'
+                      }}>
+                        {event.fecha}
+                      </div>
+
+                      <div style={{
+                        fontSize: '16px',
+                        fontWeight: 500,
+                        color: '#696c6f'
+                      }}>
+                        {event.evento}
+                      </div>
+                    </div>
+
+                    {/* Flechita */}
+                    <div style={{
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    fontSize: '18px',
+                    color: '#6b7280'
+                  }}>
+                    ⌄
                   </div>
+                  </div>
+
+                  {/* Contenido expandido */}
                   <div style={{
-                    fontSize: '16px',
-                    fontWeight: 500,
-                    color: '#696c6f'
+                    display: 'grid',
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    transition: 'grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}>
-                    {event.evento}
+                    <div style={{
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        paddingTop: '0.5rem',
+                        fontSize: '14px',
+                        color: '#4b5563',
+
+                        // ✨ animación interna
+                        opacity: isOpen ? 1 : 0,
+                        transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
+                        transition: 'all 0.25s ease 0.1s'
+                      }}>
+                        <p style={{ margin: 0 }}>{event.descripcion}</p>
+                        <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#6b7280' }}>
+                          {event.lugar}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section style={{
-        padding: '4rem 1.5rem',
-        background: 'aquamarine'
-      }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{
-            fontSize: '28px',
-            fontWeight: 500,
-            marginBottom: '1rem'
-          }}>
+      <section 
+        style={{ padding: '4rem 10rem' }}
+      >        
+      <div style={{
+            background: '#f5eee2',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            marginTop: '1rem',
+            border: 'none', 
+            maxWidth: '800px', 
+            margin: '0 auto', 
+            textAlign: 'center' }}>
+
+          <h2 className={styles.heading2}>
             Un impacto que trasciende
           </h2>
-          <p style={{
-            fontSize: '17px',
-            lineHeight: 1.7,
-            color: 'var(--color-text-secondary)'
-          }}>
+          <p className={styles.secondaryText}>
             Cada evento del DNE MTY 2026 está diseñado para crear concientización sobre la correcta
             separación de basura y promover la economía circular. Únete a nosotros en este viaje
             hacia un futuro más sostenible.
@@ -114,5 +235,20 @@ function DNE() {
     </div>
   );
 }
+
+<style>
+{`
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+`}
+</style>
 
 export default DNE;

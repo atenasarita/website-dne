@@ -128,7 +128,7 @@ function RutaAzul() {
               de sostenibilidad.
             </p>
             <a
-              href="https://tec.mx/es/sostenibilidad"
+              href="https://tec.mx/es/florecimiento-humano/desarrollo-sostenible/ruta-azul?srsltid=AfmBOoqjtj5iMyqJZitSh96kh6US4m0vuHVtK3A8XoUk5R0ztILQbEcE"
               target="_blank"
               rel="noopener noreferrer"
               style={{

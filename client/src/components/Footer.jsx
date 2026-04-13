@@ -27,7 +27,7 @@ function Footer() {
           fontSize: '13px',
           color: 'var(--color-text-tertiary)'
         }}>
-          Embajadores del Tec Campus Monterrey - Onceava Generación
+          Embajadores del Tec Campus Monterrey - Onceava Generación #jointheloop
         </p>
       </div>
     </footer>
