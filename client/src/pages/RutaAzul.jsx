@@ -1,229 +1,279 @@
-import React from 'react';
-import { ExternalLink, Leaf, Target, Users, TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, BookOpen, Zap, Shield, GraduationCap, FlaskConical, Globe, ChevronDown, Flag, Target, Layers } from 'lucide-react';
 import styles from './styles/RutaAzul.module.css';
 
-function RutaAzul() {
-  return (
-    <div>
-      {/* Header - styled like Inicio */}
-      <section
-        className={styles.card}
-      >
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className={styles.mainTitle}>
-            Ruta Azul
-          </h1>
-          <p className={styles.subtitle}>
-            Plan de Sostenibilidad y Cambio Climático al 2025
-          </p>
-        </div>
-      </section>
+const pilares = [
+  {
+    id: 'cultura',
+    icon: <BookOpen size={28} color="#fff" />,
+    title: 'Cultura',
+    color: '#25c3f4',
+    mision: 'Fomentar la toma de decisiones con conciencia sostenible.',
+    objetivo: 'Impulsar una cultura de sostenibilidad, brindando conocimientos y promoviendo comportamientos en desarrollo sostenible y cambio climático.',
+    areas: ['Conocimiento y Comunicación', 'Vivencia', 'Medición', 'Reconocimientos'],
+  },
+  {
+    id: 'mitigacion',
+    icon: <Zap size={28} color="#fff" />,
+    title: 'Mitigación',
+    color: '#ef525b',
+    mision: 'Reducir el impacto ambiental de las operaciones de nuestra institución.',
+    objetivo: 'Al 2025: Reducir huella de carbono en 50% (neutralidad al 2040), reducir 20% consumo hídrico, y 100% de instalaciones con modelo sostenible de gestión de residuos.',
+    areas: ['Emisiones', 'Energía y Combustibles', 'Agua', 'Residuos'],
+  },
+  {
+    id: 'adaptacion',
+    icon: <Shield size={28} color="#fff" />,
+    title: 'Adaptación',
+    color: '#102e4d',
+    mision: 'Minimizar los efectos del cambio climático en nuestras instalaciones y comunidades.',
+    objetivo: 'Al 2025: 100% de campus con análisis de implicaciones de impacto de cambio climático y planes de mitigación basados en diagnósticos de vulnerabilidad climática.',
+    areas: ['Riesgos climáticos', 'Planeación', 'Capacitación'],
+  },
+  {
+    id: 'educacion',
+    icon: <GraduationCap size={28} color="#fff" />,
+    title: 'Educación',
+    color: '#079272',
+    mision: 'Formar líderes comprometidos a forjar un futuro sostenible.',
+    objetivo: 'Integrar la educación en cambio climático y desarrollo sostenible en los próximos planes de estudio de profesional.',
+    areas: ['Programas académicos', 'Capacitación', 'Evaluación y certificación académica'],
+  },
+  {
+    id: 'investigacion',
+    icon: <FlaskConical size={28} color="#fff" />,
+    title: 'Investigación',
+    color: '#137ec2',
+    mision: 'Impulsar la investigación interdisciplinaria para brindar soluciones sistémicas a la complejidad del cambio climático.',
+    objetivo: 'Al 2025: Crear un fondo para impulso de investigación interdisciplinaria en sostenibilidad y hacer de los campus living labs para la investigación.',
+    areas: ['Investigación interdisciplinaria', 'Laboratorios', 'Divulgación'],
+  },
+  {
+    id: 'vinculacion',
+    icon: <Globe size={28} color="#fff" />,
+    title: 'Vinculación',
+    color: '#f79220',
+    mision: 'Catalizar la acción climática en la sociedad en su conjunto.',
+    objetivo: 'Al 2025: Ser uno de los actores principales en la movilización hacia la acción climática en el país.',
+    areas: ['Oferta educativa', 'Alianzas y redes', 'Proyectos', 'Involucramiento'],
+  },
+];
 
-      {/* Main Content */}
-      <section style={{ padding: '4rem 1.5rem', background: 'var(--color-backgroun-tertiary)' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div
-            style={{marginBottom: '6rem'
-            }}
-          >
-            <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>
-              ¿Qué es Ruta Azul?
-            </h2>
-            <p className={styles.bodyText} style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)' }}>
-              Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.
-              Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en
-              una institución modelo de sostenibilidad.
-            </p>
-            <p className={styles.bodyText} style={{ color: 'var(--color-text-secondary)' }}>
-              El rumbo es claro: trabajamos juntos para crear un impacto positivo en nuestra comunidad
-              y en el medio ambiente.
-            </p>
-
-          </div>
-
-        </div>
-
-          <section style={{
-          background: '#f5eee2',
-          padding: '2rem', 
-          borderRadius: '12px',
-          maxWidth: '1000px',
-          margin: '0 auto',
-          }}> 
-
-          <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>
-              Conoce los ejes de acción estratégica de Ruta Azul
-          </h2>
-
-          {/* Key Pillars */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '3rem',
-              borderRadius: '12px',
-              padding: '1.5rem',
-              marginTop: '1rem'
-            }}
-          >
-            <PillarCard
-              icon={<Leaf size={28} />}
-              title="Sostenibilidad"
-              description="Promovemos prácticas sostenibles en todas nuestras actividades"
-              color="var(--color-text-success)"
-            />
-            <PillarCard
-              icon={<Target size={28} />}
-              title="Metas claras"
-              description="Objetivos específicos hacia el 2025 para reducir nuestro impacto"
-              color="var(--color-text-info)"
-            />
-            <PillarCard
-              icon={<Users size={28} />}
-              title="Comunidad"
-              description="Involucrar a toda la comunidad Tec en el cambio"
-              color="var(--color-text-warning)"
-            />
-            <PillarCard
-              icon={<TrendingUp size={28} />}
-              title="Impacto"
-              description="Medimos y mejoramos continuamente nuestros resultados"
-              color="var(--color-text-danger)"
-            />
-            <PillarCard
-              icon={<TrendingUp size={28} />}
-              title="Impacto"
-              description="Medimos y mejoramos continuamente nuestros resultados"
-              color="var(--color-text-danger)"
-            />
-            <PillarCard
-              icon={<TrendingUp size={28} />}
-              title="Impacto"
-              description="Medimos y mejoramos continuamente nuestros resultados"
-              color="var(--color-text-danger)"
-            />
-          </div>
-
-          </section>
-
-          {/* CTA - use linkButton style from Inicio.module.css */}
-          <div
-            style={{
-              background: 'var(--color-background-info)',
-              borderRadius: 'var(--border-radius-lg)',
-              padding: '2rem',
-              textAlign: 'center',
-              border: '0.5px solid var(--color-border-info)',
-            }}
-          >
-            <h3 className={styles.heading3} style={{ marginBottom: '1rem', color: 'var(--color-text-info)' }}>
-              Conoce más sobre Ruta Azul
-            </h3>
-            <p className={styles.bodyText} style={{ color: 'var(--color-text-info)', marginBottom: '1.5rem' }}>
-              Visita el sitio oficial para conocer a detalle nuestras iniciativas y compromisos
-              de sostenibilidad.
-            </p>
-            <a
-              href="https://tec.mx/es/florecimiento-humano/desarrollo-sostenible/ruta-azul?srsltid=AfmBOoqjtj5iMyqJZitSh96kh6US4m0vuHVtK3A8XoUk5R0ztILQbEcE"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.linkButton}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                border: '0.5px solid var(--color-border-info)',
-                color: 'var(--color-text-info)',
-                textDecoration: 'none',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-            >
-              Visitar sitio oficial
-              <ExternalLink size={16} />
-            </a>
-          </div>
-      </section>
-    </div>
-  );
-}
-
-function PillarCard({ icon, title, description, color, delay = "0s", isVisible = true }) {
-  const [isHovered, setIsHovered] = React.useState(false);
+function PilarCard({ pilar }) {
+  const [expanded, setExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={isVisible ? styles.cardSlideUp : styles.hiddenDown}
       style={{
         background: '#1c3a5e',
         borderRadius: '12px',
-        padding: '1.5rem',
-        border: '0.5px solid var(--color-border-tertiary)',
-        display: 'block',
-        animationDelay: delay,
-
-        // ✨ animación hover
-        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+        border: '0.5px solid rgba(255,255,255,0.08)',
+        overflow: 'hidden',
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         boxShadow: isHovered
-          ? '0 12px 24px rgba(28, 58, 94, 0.25)'
-          : '0 2px 8px rgba(0,0,0,0.1)',
-
+          ? '0 12px 28px rgba(0,0,0,0.25)'
+          : '0 2px 8px rgba(0,0,0,0.15)',
         cursor: 'pointer',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setExpanded(!expanded)}
     >
-
-      {/* ICON */}
-      <div
-        style={{
-          width: '48px',
-          height: '48px',
-          borderRadius: '10px',
-          background: color,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '1rem',
-
-          transform: isHovered ? 'rotate(10deg) scale(1.1)' : 'rotate(0) scale(1)',
-          transition: 'transform 0.3s ease',
-        }}
-      >
-        {icon}
+      {/* Card header - always visible */}
+      <div style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '10px',
+            background: pilar.color,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            transform: isHovered ? 'rotate(8deg) scale(1.08)' : 'rotate(0) scale(1)',
+            transition: 'transform 0.3s ease',
+          }}>
+            {pilar.icon}
+          </div>
+          <h3 style={{
+            fontSize: '20px',
+            fontWeight: 500,
+            color: '#5ca3d9',
+            fontFamily: 'NeueEinstellung',
+            margin: 0,
+            transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+            transition: 'transform 0.3s ease',
+          }}>
+            {pilar.title}
+          </h3>
+        </div>
+        <ChevronDown
+          size={20}
+          color="#829bb3"
+          style={{
+            flexShrink: 0,
+            transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease',
+          }}
+        />
       </div>
 
-      {/* TITLE */}
-      <h3
-        style={{
-          fontSize: '20px',
-          fontWeight: 500,
-          marginBottom: '0.5rem',
-          color: '#5ca3d9',
-          fontFamily: 'NeueEinstellung',
+      {/* Expandable content */}
+      <div style={{
+        maxHeight: expanded ? '400px' : '0',
+        overflow: 'hidden',
+        transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}>
+        <div style={{
+          padding: '0 1.5rem 1.5rem',
+          borderTop: '0.5px solid rgba(255,255,255,0.08)',
+          paddingTop: '1.25rem',
+        }}>
 
-          transform: isHovered ? 'translateX(5px)' : 'translateX(0)',
-          transition: 'transform 0.3s ease',
-        }}
-      >
-        {title}
-      </h3>
+          {/* Misión */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem' }}>
+              <Flag size={13} color={pilar.color} />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
+                Misión
+              </span>
+            </div>
+            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#c8d8e8', lineHeight: 1.6, margin: 0 }}>
+              {pilar.mision}
+            </p>
+          </div>
 
-      {/* DESCRIPTION */}
-      <p
-        style={{
-          fontFamily: 'Space Mono',
-          fontSize: '14px',
-          color: '#f8f8f5',
-          lineHeight: 1.6,
-          margin: 0,
-        }}
-      >
-        {description}
-      </p>
+          {/* Objetivo */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem' }}>
+              <Target size={13} color={pilar.color} />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
+                Objetivo
+              </span>
+            </div>
+            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#c8d8e8', lineHeight: 1.6, margin: 0 }}>
+              {pilar.objetivo}
+            </p>
+          </div>
+
+          {/* Áreas */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.6rem' }}>
+              <Layers size={13} color={pilar.color} />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
+                Áreas de trabajo
+              </span>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {pilar.areas.map((area, i) => (
+                <span key={i} style={{
+                  fontSize: '12px',
+                  fontFamily: 'DM Sans',
+                  color: '#f8f8f5',
+                  background: `${pilar.color}33`,
+                  border: `0.5px solid ${pilar.color}66`,
+                  borderRadius: '20px',
+                  padding: '3px 10px',
+                }}>
+                  {area}
+                </span>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RutaAzul() {
+  return (
+    <div>
+      <section className={styles.card}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h1 className={styles.mainTitle}>Ruta Azul</h1>
+          <p className={styles.subtitle}>Plan de Sostenibilidad y Cambio Climático al 2025</p>
+        </div>
+      </section>
+
+      <section style={{ padding: '4rem 1.5rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', marginBottom: '4rem' }}>
+          <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>¿Qué es Ruta Azul?</h2>
+          <p className={styles.bodyText} style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)' }}>
+            Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.
+            Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en una institución modelo.
+          </p>
+          <p className={styles.bodyText} style={{ color: 'var(--color-text-secondary)' }}>
+            El rumbo es claro: trabajamos juntos para crear un impacto positivo en nuestra comunidad y en el medio ambiente.
+          </p>
+        </div>
+
+        {/* Pilares expandibles */}
+        <div style={{
+          background: '#f5eee2',
+          padding: '2rem',
+          borderRadius: '12px',
+          maxWidth: '1000px',
+          margin: '0 auto 3rem',
+        }}>
+          <h2 className={styles.heading2} style={{ marginBottom: '0.5rem' }}>
+            Ejes de acción estratégica
+          </h2>
+          <p style={{ fontFamily: 'DM Sans', fontSize: '14px', color: '#6b7280', marginBottom: '1.5rem' }}>
+            Haz clic en cada pilar para conocer más detalles.
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1rem',
+          }}>
+            {pilares.map(pilar => (
+              <PilarCard key={pilar.id} pilar={pilar} />
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div style={{
+          background: 'var(--color-background-info)',
+          borderRadius: 'var(--border-radius-lg)',
+          padding: '2rem',
+          textAlign: 'center',
+          border: '0.5px solid var(--color-border-info)',
+          maxWidth: '1000px',
+          margin: '0 auto',
+        }}>
+          <h3 className={styles.heading3} style={{ marginBottom: '1rem', color: 'var(--color-text-info)' }}>
+            Conoce más sobre Ruta Azul
+          </h3>
+          <p className={styles.bodyText} style={{ color: 'var(--color-text-info)', marginBottom: '1.5rem' }}>
+            Visita el sitio oficial para conocer a detalle nuestras iniciativas y compromisos de sostenibilidad.
+          </p>
+          <a href="https://tec.mx/es/florecimiento-humano/desarrollo-sostenible/ruta-azul"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.linkButton}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              border: '0.5px solid var(--color-border-info)',
+              color: 'var(--color-text-info)',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            Visitar sitio oficial
+            <ExternalLink size={16} />
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
