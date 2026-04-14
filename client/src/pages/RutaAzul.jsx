@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, BookOpen, Zap, Shield, GraduationCap, FlaskConical, Globe, ChevronDown, Flag, Target, Layers } from 'lucide-react';
+import { ExternalLink, BookOpen, Zap, Shield, GraduationCap, FlaskConical, Globe } from 'lucide-react';
 import styles from './styles/RutaAzul.module.css';
+import PilarCard from '../components/PilarCard'
 
 const pilares = [
   {
@@ -58,137 +59,6 @@ const pilares = [
     areas: ['Oferta educativa', 'Alianzas y redes', 'Proyectos', 'Involucramiento'],
   },
 ];
-
-function PilarCard({ pilar }) {
-  const [expanded, setExpanded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      style={{
-        background: '#e8e6e0',
-        borderRadius: '12px',
-        border: '0.5px solid rgba(255,255,255,0.08)',
-        overflow: 'hidden',
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: isHovered
-          ? '0 12px 28px rgba(0,0,0,0.25)'
-          : '0 2px 8px rgba(0,0,0,0.15)',
-        cursor: 'pointer',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setExpanded(!expanded)}
-    >
-      {/* Card header - always visible */}
-      <div style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{
-            width: '48px',
-            height: '48px',
-            borderRadius: '10px',
-            background: pilar.color,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            transform: isHovered ? 'rotate(8deg) scale(1.08)' : 'rotate(0) scale(1)',
-            transition: 'transform 0.3s ease',
-          }}>
-            {pilar.icon}
-          </div>
-          <h3 style={{
-            fontSize: '20px',
-            fontWeight: 500,
-            color: '#203b5d',
-            fontFamily: 'NeueEinstellung',
-            margin: 0,
-            transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'transform 0.3s ease',
-          }}>
-            {pilar.title}
-          </h3>
-        </div>
-        <ChevronDown
-          size={20}
-          color="#829bb3"
-          style={{
-            flexShrink: 0,
-            transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.3s ease',
-          }}
-        />
-      </div>
-
-      {/* Expandable content */}
-      <div style={{
-        maxHeight: expanded ? '400px' : '0',
-        overflow: 'hidden',
-        transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}>
-        <div style={{
-          padding: '0 1.5rem 1.5rem',
-          borderTop: '0.5px solid rgba(255,255,255,0.08)',
-          paddingTop: '1.25rem',
-        }}>
-
-          {/* Misión */}
-          <div style={{ marginBottom: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem' }}>
-              <Flag size={13} color={pilar.color} />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
-                Misión
-              </span>
-            </div>
-            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#203b5d', lineHeight: 1.6, margin: 0 }}>
-              {pilar.mision}
-            </p>
-          </div>
-
-          {/* Objetivo */}
-          <div style={{ marginBottom: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem' }}>
-              <Target size={13} color={pilar.color} />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
-                Objetivo
-              </span>
-            </div>
-            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#203b5d', lineHeight: 1.6, margin: 0 }}>
-              {pilar.objetivo}
-            </p>
-          </div>
-
-          {/* Áreas */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.6rem' }}>
-              <Layers size={13} color={pilar.color} />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: pilar.color, textTransform: 'uppercase', letterSpacing: '0.07em', fontFamily: 'DM Sans' }}>
-                Áreas de trabajo
-              </span>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {pilar.areas.map((area, i) => (
-                <span key={i} style={{
-                  fontSize: '12px',
-                  fontFamily: 'DM Sans',
-                  color: '#203b5d',
-                  background: `${pilar.color}33`,
-                  border: `0.5px solid ${pilar.color}66`,
-                  borderRadius: '20px',
-                  padding: '3px 10px',
-                }}>
-                  {area}
-                </span>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function RutaAzul() {
   const [isVisible, setIsVisible] = useState({
@@ -251,16 +121,14 @@ function RutaAzul() {
         </div>
       </section>
 
-      <section data-section="intro" style={{ padding: '4rem 10rem' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', marginBottom: '4rem' }} className={isVisible.intro ? styles.fadeInUp : styles.hidden}>
+    <section data-section="intro" style={{ padding: '4rem clamp(1.5rem, 6vw, 6rem)' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
           <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>¿Qué es Ruta Azul?</h2>
           <p className={styles.bodyText}>
-            Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.
-            Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en una institución modelo.
+            Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.              Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en una institución modelo.
           </p>
           <p className={styles.bodyText} style={{ color: 'var(--color-text-secondary)' }}>
-            El rumbo es claro: trabajamos juntos para crear un impacto positivo en nuestra comunidad y en el medio ambiente.
-          </p>
+            El rumbo es claro: trabajamos juntos para crear un impacto positivo en nuestra comunidad y en el medio ambiente.            </p>
         </div>
 
         {/* Pilares expandibles */}
@@ -280,10 +148,10 @@ function RutaAzul() {
             Haz clic en cada pilar para conocer más detalles.
           </p>
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1rem',
-          }}>
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+              gap: '1rem',
+            }}>
             {pilares.map((pilar, index) => (
               <PilarCard
                 key={pilar.id}

@@ -116,7 +116,7 @@ function QuienesSomos() {
       </section>
 
       {/* PROYECTO */}
-      <section style={{ padding: '4rem 1.5rem' }} data-section="proyecto">
+      <section style={{ padding: '1rem 2rem' }} data-section="proyecto">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           
           <h2
