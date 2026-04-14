@@ -1,0 +1,331 @@
+.card{
+    background: #6db372;
+    color: #1d2535;
+    padding: 4rem 1rem;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.mainTitle{
+    font-size: 82px;
+    margin-bottom: 0.5rem;
+    font-family: 'NeueEinstellung';
+    transition: transform 0.3s ease;
+}
+
+.subtitle{
+    font-size: 20px;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-family: 'Space Mono', monospace;
+}
+
+.secondary{
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 4rem;
+}
+
+.linkButton{
+    display: inline-block;
+    background-color: #74c0fc;
+    border: none;
+    color: #1c3a5e;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.linkButton:hover {
+    background-color: #5ca3d9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(116, 192, 252, 0.5);
+}
+
+.linkButton::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.linkButton:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Pulse animation for button */
+.pulseButton {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(116, 192, 252, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(116, 192, 252, 0.7);
+    }
+}
+
+.heading2{
+    font-family: 'NeueEinstellung';
+    font-size: 28px;
+    margin-bottom: 1rem;
+    color: #0f1829;
+}
+
+.heading3{
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.secondaryText{
+    color: #1c3a5e;
+    font-weight: 800;
+}
+
+.bodyText{
+    font-size: 17px;
+    line-height: 1.7;
+    color: #25262b;
+    margin-bottom: 2rem;
+    font-family: 'DM Sans', sans-serif;
+}
+
+
+/* Hidden states */
+
+.hiddenLeft {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.hiddenDown {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.hiddenScale {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+/* Fade In Up Animation */
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* animación entrada */
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* keyframes */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide In Left Animation */
+.slideInLeft {
+    animation: slideInLeft 0.7s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale In Animation */
+.scaleIn {
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Card Slide Up Animation */
+.cardSlideUp {
+    animation: cardSlideUp 0.7s ease-out forwards;
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Icon Animation */
+.cardIcon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.cardIcon::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Floating Animation for Background */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Gradient Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.linkButton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.linkButton:hover::after {
+    left: 100%;
+}
+
+/* Glow effect on hover */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(116, 192, 252, 0.5),
+                    0 0 10px rgba(116, 192, 252, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(116, 192, 252, 0.8),
+                    0 0 20px rgba(116, 192, 252, 0.5);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 56px;
+    }
+    
+    .subtitle {
+        font-size: 16px;
+    }
+    
+    .heading2 {
+        font-size: 24px;
+    }
+
+    .bgCircle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .floatingIcon {
+        font-size: 32px;
+    }
+}
+
+/* Stagger animations for multiple elements */
+.cardSlideUp:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.cardSlideUp:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.cardSlideUp:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading state */
+@keyframes skeleton {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}

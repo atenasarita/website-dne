@@ -1,266 +1,191 @@
 import React from 'react';
-import { BookOpen, Library, GraduationCap } from 'lucide-react';
+import { BookOpen, Library, GraduationCap, ExternalLink, PlayCircle } from 'lucide-react';
+import styles from './styles/Aprende.module.css'
+
+function MapaReciclatec() {
+  return (
+    <div style={{
+      borderRadius: '15px',
+      border: '0.5px solid var(--color-border-tertiary)',
+      overflow: 'hidden',
+      marginBottom: '6rem'
+    }}>
+      <div style={{
+        padding: '1.25rem 1.5rem',
+        borderBottom: '0.5px solid var(--color-border-tertiary)'
+      }}>
+        <h2 className={styles.heading2}>
+          Donde dejar tus residuos alrededor del campus
+        </h2>
+      </div>
+      <iframe
+        src="https://www.google.com/maps/d/u/0/embed?mid=1UW4MbluNCQSj-VJBhREE5F_ZlWEVVa0&ll=25.652851064367894,-100.288378&z=16"
+        width="100%"
+        height="480"
+        style={{ display: 'block', border: 'none' }}
+        title="Mapa de puntos de recolección Reciclatec"
+        loading="lazy"
+        allowFullScreen
+      />
+    </div>
+  );
+}
+
+function ResourceCard({ title, description, icon, href }) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const inner = (
+    <div
+      style={{
+        background: '#c69a6d',
+        borderRadius: '15px',
+        padding: '1.5rem',
+        transition: 'all 0.2s',
+        height: '100%',
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+        cursor: href ? 'pointer' : 'default',
+        textDecoration: 'none',
+        display: 'block'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div style={{
+        width: '48px', height: '48px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: '#1d2535',
+        marginBottom: '1rem'
+      }}>
+        {icon}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.5rem' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: 500, margin: 0, color: '#1d2535', fontFamily: 'NeueEinstellung' }}>
+          {title}
+        </h3>
+        {href && <ExternalLink size={13} color="#1d2535" />}
+      </div>
+      <p style={{ fontSize: '14px', color: '#1d2535', lineHeight: 1.6, margin: 0, fontFamily: 'Space Mono' }}>
+        {description}
+      </p>
+    </div>
+  );
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+        {inner}
+      </a>
+    );
+  }
+  return inner;
+}
 
 function Aprende() {
   return (
     <div>
-      {/* Header */}
-      <section style={{
-        background: 'linear-gradient(135deg, #FFB703 0%, #52B788 100%)',
-        color: 'white',
-        padding: '4rem 1.5rem 3rem',
-        textAlign: 'center'
-      }}>
+      {/* Hero */}
+      <section className={styles.card}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '64px',
-            height: '64px',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.2)',
-            marginBottom: '1rem'
-          }}>
-            <GraduationCap size={36} />
-          </div>
-          <h1 style={{
-            fontSize: '40px',
-            fontWeight: 500,
-            marginBottom: '1rem'
-          }}>
+          <h1 className={styles.mainTitle}>
             Aprende
           </h1>
-          <p style={{
-            fontSize: '18px',
-            opacity: 0.95,
-            lineHeight: 1.7
-          }}>
-            Recursos académicos sobre sustentabilidad
+          <p className={styles.subtitle}>
+            No tienes que esperar a Reciclatec para educarte y ser parte del cambio!
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section style={{
-        padding: '4rem 1.5rem',
-        background: 'var(--color-background-tertiary)'
-      }}>
+      {/* Main content */}
+      <section style={{ padding: '4rem 1.5rem', background: 'var(--color-background-tertiary)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          {/* Intro */}
+
+          {/* Intro banner */}
           <div style={{
-            background: 'var(--color-background-info)',
-            borderRadius: 'var(--border-radius-lg)',
-            padding: '2rem',
+            background: '#e8e6e0',
+            borderRadius: '15px',
+            padding: '1.5rem 2rem',
             marginBottom: '2rem',
             border: '0.5px solid var(--color-border-info)',
             textAlign: 'center'
           }}>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: 1.7,
-              color: 'var(--color-text-info)',
-              margin: 0
-            }}>
+            <p className={styles.heading3}>
               ¿Sabías que al ser estudiante del Tec de Monterrey tienes acceso a miles de recursos
               académicos relacionados con sustentabilidad?
             </p>
           </div>
 
-          {/* Taylor & Francis */}
-          <div style={{
-            background: 'var(--color-background-primary)',
-            borderRadius: 'var(--border-radius-lg)',
-            padding: '2rem',
-            border: '0.5px solid var(--color-border-tertiary)',
-            marginBottom: '2rem'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              marginBottom: '1.5rem'
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: 'var(--border-radius-md)',
-                background: 'var(--color-background-info)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Library size={24} color="var(--color-text-info)" />
-              </div>
-              <h2 style={{
-                fontSize: '24px',
-                fontWeight: 500,
-                margin: 0
-              }}>
-                Taylor & Francis Online
-              </h2>
-            </div>
-            
-            <p style={{
-              fontSize: '16px',
-              lineHeight: 1.7,
-              color: 'var(--color-text-secondary)',
-              marginBottom: '1rem'
-            }}>
-              Taylor & Francis Online es una plataforma digital que ofrece acceso a una vasta
-              biblioteca de millones de artículos académicos, revistas científicas y libros de
-              investigación revisados por pares, abarcando casi todas las áreas del conocimiento humano.
-            </p>
-            
-            <div style={{
-              background: 'var(--color-background-secondary)',
-              borderRadius: 'var(--border-radius-md)',
-              padding: '1.5rem',
-              marginBottom: '1.5rem'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                marginBottom: '0.75rem'
-              }}>
-                <BookOpen size={20} color="var(--color-text-info)" />
-                <h3 style={{
-                  fontSize: '16px',
-                  fontWeight: 500,
-                  margin: 0,
-                  color: 'var(--color-text-info)'
-                }}>
-                  Más de 300 mil artículos disponibles
-                </h3>
-              </div>
-              <p style={{
-                fontSize: '14px',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.6,
-                margin: 0
-              }}>
-                Artículos relacionados con el medio ambiente y la sustentabilidad desde la
-                Biblioteca Digital del Tec
-              </p>
-            </div>
+          {/* Mapa */}
+          <MapaReciclatec />
 
-            <div style={{
-              background: 'var(--color-background-secondary)',
-              borderRadius: 'var(--border-radius-md)',
-              padding: '1.5rem',
-              textAlign: 'center'
-            }}>
-              <BookOpen size={48} color="var(--color-text-info)" style={{ marginBottom: '12px' }} />
-              <p style={{
-                fontSize: '14px',
-                color: 'var(--color-text-secondary)',
-                margin: 0
-              }}>
-                Video tutorial disponible próximamente
-              </p>
-            </div>
-          </div>
+          <p className={styles.heading2}>
+            Recursos disponibles
+          </p>
 
-          {/* Additional Resources */}
+          {/* Resource cards grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '1rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
+            gap: '1rem',
+            marginBottom: '6rem'
           }}>
+
             <ResourceCard
-              title="Biblioteca Digital"
-              description="Accede a millones de recursos académicos del Tec"
-              icon={<Library size={24} />}
+              title="Taylor & Francis Online"
+              description="Plataforma con millones de artículos académicos, revistas científicas y libros revisados por pares sobre casi todas las áreas del conocimiento."
+              icon={<Library />}
+              href="https://www.tandfonline.com"
+              badge="300k+ artículos"
             />
+
             <ResourceCard
-              title="Artículos científicos"
-              description="Investigaciones revisadas por pares sobre sustentabilidad"
-              icon={<BookOpen size={24} />}
+              title="Biblioteca Digital Tec"
+              description="Accede a todos los recursos académicos del Tec de Monterrey disponibles para la comunidad estudiantil, incluyendo bases de datos, ebooks y más."
+              icon={<BookOpen />}
+              href="https://biblioteca.tec.mx"
+              badge="Acceso con matrícula"
             />
+
             <ResourceCard
               title="Guías y tutoriales"
-              description="Aprende a usar las herramientas de investigación"
-              icon={<GraduationCap size={24} />}
+              description="Aprende a usar las herramientas de investigación académica disponibles en el campus para sacarles el mayor provecho."
+              icon={<GraduationCap />}
+              badge="Próximamente"
+              extra={
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '0.75rem 1rem',
+                  background: 'rgba(32,59,93,0.06)',
+                  borderRadius: '10px',
+                  border: '0.5px dashed rgba(32,59,93,0.2)'
+                }}>
+                  <PlayCircle size={18} color="#829bb3" />
+                  <span style={{ fontSize: '13px', color: 'var(--color-text-tertiary)' }}>
+                    Video tutorial disponible próximamente
+                  </span>
+                </div>
+              }
             />
+
           </div>
+
+          {/* CTA */}
+          <div style={{
+            background: '#e8e6e0',
+            borderRadius: '15px',
+            padding: '2.5rem 2rem',
+            textAlign: 'center'
+          }}>
+            <h2 className={styles.heading2}>
+              Aprende y comparte
+            </h2>
+            <p className={styles.bodyText}>
+              La educación es clave para crear un impacto positivo. Utiliza estos recursos para
+              aprender más sobre sustentabilidad y comparte el conocimiento con tu comunidad.
+            </p>
+          </div>
+
         </div>
       </section>
-
-      {/* Call to Action */}
-      <section style={{
-        padding: '4rem 1.5rem',
-        background: 'var(--color-background-primary)'
-      }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{
-            fontSize: '28px',
-            fontWeight: 500,
-            marginBottom: '1rem'
-          }}>
-            Aprende y comparte
-          </h2>
-          <p style={{
-            fontSize: '17px',
-            lineHeight: 1.7,
-            color: 'var(--color-text-secondary)',
-            marginBottom: '2rem'
-          }}>
-            La educación es clave para crear un impacto positivo. Utiliza estos recursos para
-            aprender más sobre sustentabilidad y comparte el conocimiento con tu comunidad.
-          </p>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function ResourceCard({ title, description, icon }) {
-  return (
-    <div style={{
-      background: 'var(--color-background-primary)',
-      borderRadius: 'var(--border-radius-lg)',
-      padding: '1.5rem',
-      border: '0.5px solid var(--color-border-tertiary)',
-      transition: 'all 0.2s'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.transform = 'translateY(-4px)';
-      e.currentTarget.style.borderColor = 'var(--color-border-info)';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.transform = 'translateY(0)';
-      e.currentTarget.style.borderColor = 'var(--color-border-tertiary)';
-    }}
-    >
-      <div style={{
-        width: '48px',
-        height: '48px',
-        borderRadius: 'var(--border-radius-md)',
-        background: 'var(--color-background-info)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--color-text-info)',
-        marginBottom: '1rem'
-      }}>
-        {icon}
-      </div>
-      <h3 style={{
-        fontSize: '16px',
-        fontWeight: 500,
-        marginBottom: '0.5rem'
-      }}>
-        {title}
-      </h3>
-      <p style={{
-        fontSize: '14px',
-        color: 'var(--color-text-secondary)',
-        lineHeight: 1.6,
-        margin: 0
-      }}>
-        {description}
-      </p>
     </div>
   );
 }
