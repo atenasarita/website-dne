@@ -6,7 +6,7 @@ const dneEvents = [
   { 
     fecha: "Miércoles 8 de abril", 
     evento: "LOOP x Vive Bailando",
-    descripcion: "Evento enfocado en activación física y comunidad.",
+    descripcion: "Un evento en el que conoces más sobre la importancia de la separación de basura y el reciclaje en nuestro campus, mientras disfrutas de una clase de baile al ritmo de música latina.",
     lugar: "Jardin de Experiencias - Parque Central"
   },
   { 
@@ -17,15 +17,21 @@ const dneEvents = [
   },
   { 
     fecha: "Viernes 17 de abril", 
-    evento: "NOMBRE PREGUNTAR A LOGISTICA",
-    descripcion: "PEDIR A LOGISTICA",
-    lugar: "Aulas 4 - De 4 a 6 PM"
+    evento: "Stand DNE MTY 2026",
+    descripcion: "¿Tienes 5 minutos en tu break? Ven a conocer el significado del DNE y cómo puedes contribuir a un futuro más sostenible.",
+    lugar: "Aulas 4 - De 3PM a 5PM"
+  },
+  { 
+    fecha: "Lunes 20 de abril", 
+    evento: "Panel Sustentabilidad",
+    descripcion: " Panel para hablar sobre (tema pendiente), generar conversación y que el público haga preguntas mientras los expertos las contestan. ¡Abierto a toda la comunidad Tec!",
+    lugar: "Auditorio de biblioteca - 4PM a 6PM"
   },
   { 
     fecha: "Miércoles 22 de abril", 
     evento: "Reciclatec",
-    descripcion: "PEDIR A LOGISTICA",
-    lugar: "Pasillo DAF - "
+    descripcion: "Nuestro mayor evento, en el que podrás llevar tus residuos reciclables y electrónicos para que sean procesados de manera responsable. Además, habrá activaciones, música y comida para conocer más sobre el Día de la Tierra.",
+    lugar: "Pasillo DAF - 9AM a 5PM"
   }
 ];
 
