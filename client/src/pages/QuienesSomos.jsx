@@ -94,36 +94,29 @@ function QuienesSomos() {
     <div>
       {/* HERO */}
       <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 10,
-          transform: `translateY(${scrollY * 0.3}px)`
-        }}>
+        <div style={{ transform: `translateY(${scrollY * 0.3}px)`, willChange: 'transform' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-          <h1
-            className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
-            style={{
-              animationDelay: '0.1s',
-              transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`
-            }}
-          >
-            ¿Quiénes somos?
-          </h1>
+            <h1
+              className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
+              style={{ animationDelay: '0.1s' }}
+              // removed the inline transform — it was fighting fadeInUp
+            >
+              ¿Quiénes somos?
+            </h1>
 
-          <p
-            className={`${styles.subtitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
-            style={{ animationDelay: '0.3s' }}
-          >
-            Hola! Somos los Embajadores Tec del Campus Monterrey de la onceava generación. Estamos muy emocionados de compartir contigo un poco más sobre nosotros y nuestro proyecto del Día Nacional de Embajadores 2026.
-          </p>
-
+            <p
+              className={`${styles.subtitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
+              style={{ animationDelay: '0.3s' }}
+            >
+              Hola! Somos los Embajadores Tec del Campus Monterrey de la onceava generación. Estamos muy emocionados de compartir contigo un poco más sobre nosotros y nuestro proyecto del Día Nacional de Embajadores 2026.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* PROYECTO */}
-      <section style={{ padding: '4rem 0.5rem' }} data-section="proyecto">
+      <section style={{ padding: '4rem 1.5rem' }} data-section="proyecto">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           
           <h2
@@ -161,7 +154,7 @@ function QuienesSomos() {
 
       {/* CARRUSEL */}
       <section
-        style={{ padding: '3rem 0', backgroundColor: '#f5eee2' }}
+        style={{ padding: '3rem 1.5rem', backgroundColor: '#f5eee2' }}
         data-section="embajadores"
       >
         <div
@@ -173,7 +166,6 @@ function QuienesSomos() {
           }}
         >
 
-          {/* 🔥 Header con animación */}
           <div
             className={isVisible.embajadores ? styles.fadeInUp : styles.hidden}
             style={{

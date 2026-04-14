@@ -86,7 +86,7 @@ const SparksCarousel = React.forwardRef(({ title, subtitle, items, headerExtra }
                 key={item.id ?? index}
                 style={{
                   minWidth: "180px",
-                  maxWidth: "180px",
+                  maxWidth: "190px",
                   flexShrink: 0,
                   background: "#fafaf8",
                   padding: "1rem",
