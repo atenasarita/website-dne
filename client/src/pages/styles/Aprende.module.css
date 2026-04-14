@@ -110,71 +110,6 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-/* Background Circles */
-.bgCircle {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.3s ease-out;
-    animation: float 6s ease-in-out infinite;
-}
-
-/* Animation Classes */
-
-/* Hidden states */
-
-.hiddenLeft {
-    opacity: 0;
-    transform: translateX(-50px);
-}
-
-.hiddenDown {
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.hiddenScale {
-    opacity: 0;
-    transform: scale(0.9);
-}
-
-/* Fade In Up Animation */
-.hidden {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-/* animación entrada */
-.fadeInUp {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-/* keyframes */
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Slide In Left Animation */
-.slideInLeft {
-    animation: slideInLeft 0.7s ease-out forwards;
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
 /* Scale In Animation */
 .scaleIn {
@@ -226,38 +161,7 @@
     transition: opacity 0.3s ease;
 }
 
-/* Floating Animation for Background */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
 
-/* Gradient Animation */
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Shimmer Effect */
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-    100% {
-        background-position: 1000px 0;
-    }
-}
 
 .linkButton::after {
     content: '';
@@ -340,5 +244,63 @@ html {
     }
     100% {
         background-position: calc(200px + 100%) 0;
+    }
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.hidden {
+  opacity: 0;
+}
+
+.hiddenUp {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.slideInLeft {
+    animation: slideInLeft 0.7s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styles from './styles/Reciclatec.module.css';
 import { Lightbulb, TriangleAlert } from 'lucide-react';
 import Countdown from '../components/Countdown'
@@ -242,8 +242,16 @@ function SearchResults({ query }) {
 }
 
 function Reciclatec() {
+  const [isVisible, setIsVisible] = useState({
+      hero: false,
+      intro: false,
+    });
+
   const [selectedCat, setSelectedCat] = useState('organico');
   const [query, setQuery] = useState('');
+
+  const [scrollY, setScrollY] = useState(0);
+  
 
   const handleSearch = useCallback((e) => setQuery(e.target.value), []);
   const isSearching = query.trim().length > 0;
@@ -256,28 +264,65 @@ function Reciclatec() {
     { id: 'metal', label: 'Metal y aluminio', color: '#00B4D8' },
   ];
 
+  useEffect(() => {
+      // HERO ON LOAD
+      setTimeout(() => {
+        setIsVisible(prev => ({ ...prev, hero: true }));
+      }, 100);
+  
+      // SCROLL OBSERVER
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const section = entry.target.getAttribute('data-section');
+            setIsVisible(prev => ({ ...prev, [section]: true }));
+          }
+        });
+      }, { threshold: 0.1 });
+  
+      document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+  
+      // Parallax scroll effect
+      const handleScroll = () => {
+        setScrollY(window.scrollY);
+      };
+  
+      // Mouse move effect for hero
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
   return (
     <div>
       {/* Hero */}
-      <section className={styles.card}>
-        <h1 className={styles.mainTitle}>
-          Reciclatec
-        </h1>
-        <p className={styles.subtitle}>
-          Evento anual de reciclaje y separación de residuos del Tec de Monterrey
-        </p>
+      <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ 
+          maxWidth: '800px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10,
+          transform: `translateY(${scrollY * 0.3}px)`
+        }}>          
+        <h1 className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}>Reciclatec</h1>
 
-        <Countdown />
+        <Countdown className={`${isVisible.hero ? styles.fadeIn : styles.hidden}`}/>
 
         <p style={{
           fontFamily: 'Space Mono',
-          fontSize: '13px',
-          color: 'rgba(255,255,255,0.55)',
+          fontSize: '16px',
+          color: 'rgba(255,255,255,0.75)',
           marginTop: '0.75rem',
-          letterSpacing: '0.04em'
-        }}>
+          letterSpacing: '0.04em',
+          animationDelay: '0.2s'
+        }}
+        className={`${isVisible.hero ? styles.fadeIn : styles.hidden}`}>
           Miércoles 22 de abril  Pasillo DAF · Campus Monterrey
         </p>
+        </div>
       </section>
 
       <div style={{ maxWidth: '900px', margin: '0 auto', marginTop: '4rem' }}>

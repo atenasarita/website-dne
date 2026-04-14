@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles/Inicio.module.css'
 
@@ -13,12 +13,24 @@ function Inicio() {
 
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const isMobileRef = useRef(false);
+
 
   useEffect(() => {
-    // Animate hero on mount
-    setTimeout(() => setIsVisible(prev => ({ ...prev, hero: true })), 100);
-    
-    // Scroll observer for sections
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      isMobileRef.current = mobile; // 🔥 clave
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    setTimeout(() => {
+      setIsVisible(prev => ({ ...prev, hero: true }));
+    }, 100);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,13 +47,13 @@ function Inicio() {
       observer.observe(el);
     });
 
-    // Parallax scroll effect
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
-    // Mouse move effect for hero
     const handleMouseMove = (e) => {
+      if (isMobileRef.current) return; // ✅ ahora sí funciona bien
+
       setMousePosition({
         x: (e.clientX - window.innerWidth / 2) / 50,
         y: (e.clientY - window.innerHeight / 2) / 50
@@ -55,6 +67,7 @@ function Inicio() {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
@@ -68,14 +81,15 @@ function Inicio() {
           margin: '0 auto', 
           position: 'relative', 
           zIndex: 10,
-          transform: `translateY(${scrollY * 0.3}px)`
-        }}>
+          transform: isMobile ? 'none' : `translateY(${scrollY * 0.3}px)`,
+          willChange: 'transform'}}>
           <div 
             className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeInUp : styles.hidden}`}
             style={{ 
               animationDelay: '0.1s',
-              transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`
-            }}
+              transform: isMobile 
+                  ? 'none' 
+                  : `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`}}
           > 
             LOOP TEC 
           </div>
@@ -149,8 +163,7 @@ function Inicio() {
       </section>
 
       {/* Quick Links */}
-      <section 
-        style={{ padding: '4rem 10rem' }}
+      <section className={styles.sectionWide}
         data-section="cards"
       >
         <div style={{
@@ -167,7 +180,7 @@ function Inicio() {
           </h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
             gap: '1.5rem'
           }}>
             <QuickLinkCard

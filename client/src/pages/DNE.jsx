@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
 import styles from './styles/DNE.module.css'
 
@@ -37,12 +37,14 @@ const dneEvents = [
 
 
 function DNE() {
-  const [openIndex, setOpenIndex] = React.useState(null);
-  const [isVisible, setIsVisible] = React.useState({
+  const [openIndex, setOpenIndex] = useState(null);
+  const [isVisible, setIsVisible] = useState({
     events: false,
   });
 
-  const [showHero, setShowHero] = React.useState(false);
+  const [showHero, setShowHero] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,10 +63,19 @@ function DNE() {
       observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       setShowHero(true);
     }, 100);
@@ -76,11 +87,17 @@ function DNE() {
     <div style={{
         backgroundColor: '#e8e6e0'
       }}>
-      <section className={styles.card}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ 
+            maxWidth: '800px', 
+            margin: '0 auto', 
+            position: 'relative', 
+            zIndex: 10,
+            transform: `translateY(${scrollY * 0.3}px)`
+        }}>       
             <h1
               className={`${styles.mainTitle} ${
-                showHero ? styles.fadeInUp : styles.hidden
+                showHero ? styles.fadeIn : styles.hidden
               }`}
               style={{ animationDelay: '0.1s' }}
             >
@@ -88,7 +105,7 @@ function DNE() {
             </h1>
             <p
               className={`${styles.subtitle} ${
-                showHero ? styles.fadeInUp : styles.hidden
+                showHero ? styles.fadeIn : styles.hidden
               }`}
               style={{ animationDelay: '0.3s' }}
               >

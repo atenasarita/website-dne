@@ -1,32 +1,32 @@
 .card{
     background: #1c3a5e;
     color: #e8e6e0;
-    padding: 6rem 1.5rem;
+    padding: 6rem 1rem;
     text-align: center;
     overflow: hidden;
     position: relative;
 }
 
 .mainTitle{
-    font-size: 96px;
+    font-size: clamp(42px, 8vw, 96px);
     margin-bottom: 1rem;
     font-family: 'NeueEinstellung';
     transition: transform 0.3s ease;
 }
 
 .subtitle{
-    font-size: 20px;
+    font-size: clamp(14px, 2vw, 20px);
     opacity: 0.95;
     margin-bottom: 2rem;
     font-weight: 400;
     font-family: 'Space Mono', monospace;
 }
 
-.secondary{
-    font-size: 18px;
-    line-height: 1.7;
-    opacity: 0.9;
-    margin-bottom: 4rem;
+.secondary {
+  font-size: clamp(14px, 4vw, 18px);
+  line-height: 1.7;
+  opacity: 0.9;
+  margin-bottom: 4rem;
 }
 
 .linkButton{
@@ -43,7 +43,12 @@
     font-family: 'DM Sans', sans-serif;
     position: relative;
     overflow: hidden;
+
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
 }
+
 
 .linkButton:hover {
     background-color: #5ca3d9;
@@ -85,7 +90,7 @@
 
 .heading2{
     font-family: 'NeueEinstellung';
-    font-size: 28px;
+  font-size: clamp(22px, 3vw, 28px);
     margin-bottom: 1rem;
     color: #0f1829;
 }
@@ -104,7 +109,7 @@
 }
 
 .bodyText{
-    font-size: 17px;
+  font-size: clamp(15px, 1.8vw, 17px);
     line-height: 1.7;
     color: #25262b;
     margin-bottom: 2rem;
@@ -292,31 +297,38 @@
     }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    .mainTitle {
-        font-size: 56px;
-    }
-    
-    .subtitle {
-        font-size: 16px;
-    }
-    
-    .heading2 {
-        font-size: 24px;
-    }
+  .card {
+    padding: 4rem 1rem;
+  }
 
-    .bgCircle {
-        width: 200px;
-        height: 200px;
-    }
+ .sectionWide {
+    padding: 3rem clamp(1.5rem, 5vw, 4rem);
+ }
 
-    .floatingIcon {
-        font-size: 32px;
-    }
+  .mainTitle {
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    margin-bottom: 1.5rem;
+  }
+
+  .secondary {
+    margin-bottom: 2rem;
+  }
+
+  .linkButton {
+    width: 60%;
+  }
 }
 
-/* Stagger animations for multiple elements */
+@media (max-width: 1024px) {
+  .sectionWide {
+    padding: 4rem 3rem;
+  }
+}
+
 .cardSlideUp:nth-child(1) {
     animation-delay: 0.1s;
 }
@@ -342,4 +354,27 @@ html {
     100% {
         background-position: calc(200px + 100%) 0;
     }
+}
+
+/* Layout helpers */
+.section {
+  padding: 4rem 1.5rem;
+}
+
+.sectionWide {
+  padding: 0.5rem 3rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.containerWide {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pageWrapper {
+  overflow-x: hidden;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, BookOpen, Zap, Shield, GraduationCap, FlaskConical, Globe, ChevronDown, Flag, Target, Layers } from 'lucide-react';
 import styles from './styles/RutaAzul.module.css';
 
@@ -191,19 +191,70 @@ function PilarCard({ pilar }) {
 }
 
 function RutaAzul() {
+  const [isVisible, setIsVisible] = useState({
+    hero: false,
+    intro: false,
+    pilares: false,
+    cta: false,
+  });
+
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    // HERO ON LOAD
+    setTimeout(() => {
+      setIsVisible(prev => ({ ...prev, hero: true }));
+    }, 100);
+
+    // SCROLL OBSERVER
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target.getAttribute('data-section');
+          setIsVisible(prev => ({ ...prev, [section]: true }));
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+
+    // Parallax scroll effect
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    // Mouse move effect for hero
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
-      <section className={styles.card}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className={styles.mainTitle}>Ruta Azul</h1>
-          <p className={styles.subtitle}>Plan de Sostenibilidad y Cambio Climático al 2025</p>
+      <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ 
+          maxWidth: '800px', 
+          margin: '0 auto', 
+          position: 'relative', 
+          zIndex: 10,
+          transform: `translateY(${scrollY * 0.3}px)`
+      }}>          
+        <h1 className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}>
+            Ruta Azul
+          </h1>
+          <p className={`${styles.subtitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`} style={{ animationDelay: '0.2s' }}>
+            Plan de Sostenibilidad y Cambio Climático al 2025
+          </p>
         </div>
       </section>
 
-      <section style={{ padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', marginBottom: '4rem' }}>
+      <section data-section="intro" style={{ padding: '4rem 10rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', marginBottom: '4rem' }} className={isVisible.intro ? styles.fadeInUp : styles.hidden}>
           <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>¿Qué es Ruta Azul?</h2>
-          <p className={styles.bodyText} style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)' }}>
+          <p className={styles.bodyText}>
             Ruta Azul es el nombre del Plan de Sostenibilidad y Cambio Climático al 2025 del Tecnológico de Monterrey.
             Es el camino que se ha trazado para lograr un futuro sostenible y convertirnos en una institución modelo.
           </p>
@@ -213,6 +264,8 @@ function RutaAzul() {
         </div>
 
         {/* Pilares expandibles */}
+        <section data-section="pilares"> 
+
         <div style={{
           background: '#829bb3',
           padding: '2rem',
@@ -231,11 +284,17 @@ function RutaAzul() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '1rem',
           }}>
-            {pilares.map(pilar => (
-              <PilarCard key={pilar.id} pilar={pilar} />
+            {pilares.map((pilar, index) => (
+              <PilarCard
+                key={pilar.id}
+                pilar={pilar}
+                delay={`${index * 0.1}s`}
+                isVisible={isVisible.pilares}
+              />
             ))}
           </div>
         </div>
+        </section>
 
         {/* CTA */}
         <div style={{

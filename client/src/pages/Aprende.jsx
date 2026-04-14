@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { BookOpen, Library, GraduationCap, ExternalLink, PlayCircle } from 'lucide-react';
 import styles from './styles/Aprende.module.css'
 
@@ -8,8 +8,9 @@ function MapaReciclatec() {
       borderRadius: '15px',
       border: '0.5px solid var(--color-border-tertiary)',
       overflow: 'hidden',
-      marginBottom: '6rem'
+      marginBottom: '6rem',
     }}>
+    
       <div style={{
         padding: '1.25rem 1.5rem',
         borderBottom: '0.5px solid var(--color-border-tertiary)'
@@ -81,22 +82,70 @@ function ResourceCard({ title, description, icon, href }) {
 }
 
 function Aprende() {
+    const [isVisible, setIsVisible] = useState({
+      hero: false,
+      intro: false,
+      mapa: false,
+      resources: false
+    });
+  
+    const [scrollY, setScrollY] = useState(0);
+    
+  
+    useEffect(() => {
+      // HERO ON LOAD
+      setTimeout(() => {
+        setIsVisible(prev => ({ ...prev, hero: true }));
+      }, 100);
+  
+      // SCROLL OBSERVER
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const section = entry.target.getAttribute('data-section');
+            setIsVisible(prev => ({ ...prev, [section]: true }));
+          }
+        });
+      }, { threshold: 0.1 });
+  
+      document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+  
+      // Parallax scroll effect
+      const handleScroll = () => {
+        setScrollY(window.scrollY);
+      };
+  
+      // Mouse move effect for hero
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
   return (
     <div>
       {/* Hero */}
-      <section className={styles.card}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className={styles.mainTitle}>
-            Aprende
+      <section className={styles.card} data-section="hero" style={{ position: 'relative', overflow: 'hidden' }} >
+        <div style={{ 
+          maxWidth: '800px', 
+          margin: '0 auto', 
+          position: 'relative', 
+          zIndex: 10,
+          transform: `translateY(${scrollY * 0.3}px)`
+        }}>
+          <h1 className={`${styles.mainTitle} ${ isVisible.hero ? styles.fadeIn : styles.hidden }`} style={{ animationDelay: '0.1s' }}>            
+              Aprende
           </h1>
-          <p className={styles.subtitle}>
+          <p className={`${styles.subtitle} ${ isVisible.hero ? styles.fadeIn : styles.hidden }`}>
             No tienes que esperar a Reciclatec para educarte y ser parte del cambio!
           </p>
         </div>
       </section>
 
       {/* Main content */}
-      <section style={{ padding: '4rem 1.5rem', background: 'var(--color-background-tertiary)' }}>
+      <section style={{ padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
 
           {/* Intro banner */}
@@ -104,10 +153,9 @@ function Aprende() {
             background: '#e8e6e0',
             borderRadius: '15px',
             padding: '1.5rem 2rem',
-            marginBottom: '2rem',
-            border: '0.5px solid var(--color-border-info)',
+            marginBottom: '3rem',
             textAlign: 'center'
-          }}>
+          }} className={`${ isVisible.hero ? styles.slideInLeft : styles.hidden }`}>
             <p className={styles.heading3}>
               ¿Sabías que al ser estudiante del Tec de Monterrey tienes acceso a miles de recursos
               académicos relacionados con sustentabilidad?
@@ -115,8 +163,11 @@ function Aprende() {
           </div>
 
           {/* Mapa */}
-          <MapaReciclatec />
+          <div  data-section='mapa' className={`${ isVisible.hero ? styles.slideInLeft : styles.hidden }`} style={{ animationDelay: '0.2s' }}>
+            <MapaReciclatec />
+          </div>
 
+          <div data-section='resources'className={`${isVisible.resources ? styles.fadeInUp : styles.hidden}`}> 
           <p className={styles.heading2}>
             Recursos disponibles
           </p>
@@ -165,6 +216,8 @@ function Aprende() {
                 </div>
               }
             />
+
+          </div>
 
           </div>
 

@@ -110,222 +110,42 @@
 }
 
 
-/* Hidden states */
-
-.hiddenLeft {
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.hiddenDown {
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.hiddenScale {
-    opacity: 0;
-    transform: scale(0.9);
-}
-
-/* Fade In Up Animation */
-.hidden {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-/* animación entrada */
-.fadeInUp {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-/* keyframes */
 @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Slide In Left Animation */
-.slideInLeft {
-    animation: slideInLeft 0.7s ease-out forwards;
+
+.hidden {
+  opacity: 0;
 }
 
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.hiddenUp {
+  opacity: 0;
+  transform: translateY(16px);
 }
 
-/* Scale In Animation */
-.scaleIn {
-    animation: scaleIn 0.6s ease-out forwards;
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
 }
 
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Card Slide Up Animation */
-.cardSlideUp {
-    animation: cardSlideUp 0.7s ease-out forwards;
-}
-
-@keyframes cardSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Card Icon Animation */
-.cardIcon {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-}
-
-.cardIcon::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Floating Animation for Background */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-/* Gradient Animation */
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Shimmer Effect */
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-    100% {
-        background-position: 1000px 0;
-    }
-}
-
-.linkButton::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
-    transition: left 0.5s;
-}
-
-.linkButton:hover::after {
-    left: 100%;
-}
-
-/* Glow effect on hover */
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(116, 192, 252, 0.5),
-                    0 0 10px rgba(116, 192, 252, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 10px rgba(116, 192, 252, 0.8),
-                    0 0 20px rgba(116, 192, 252, 0.5);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .mainTitle {
-        font-size: 56px;
-    }
-    
-    .subtitle {
-        font-size: 16px;
-    }
-    
-    .heading2 {
-        font-size: 24px;
-    }
-
-    .bgCircle {
-        width: 200px;
-        height: 200px;
-    }
-
-    .floatingIcon {
-        font-size: 32px;
-    }
-}
-
-/* Stagger animations for multiple elements */
-.cardSlideUp:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.cardSlideUp:nth-child(2) {
-    animation-delay: 0.3s;
-}
-
-.cardSlideUp:nth-child(3) {
-    animation-delay: 0.5s;
-}
-
-/* Smooth scroll behavior */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Loading state */
-@keyframes skeleton {
-    0% {
-        background-position: -200px 0;
-    }
-    100% {
-        background-position: calc(200px + 100%) 0;
-    }
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

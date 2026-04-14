@@ -16,7 +16,8 @@ function App() {
         minHeight: '100vh',
         background: '#f8f8f5',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflowX: 'hidden', maxWidth: '100vw'
       }}>
         <Header />
         <main style={{ flex: 1 }}>
