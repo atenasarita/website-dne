@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './Countdown.module.css';
 
 function Countdown() {
   const [timeLeft, setTimeLeft] = useState({});
@@ -30,10 +31,7 @@ function Countdown() {
   ];
 
   return (
-    <div style={{
-      display: 'inline-flex', gap: '8px', marginTop: '1.5rem',
-      flexWrap: 'wrap', justifyContent: 'center'
-    }}>
+    <div className={styles.countdownContainer}>
       {units.map(({ label, value }, i) => (
         <>
           <div key={label} style={{
@@ -44,24 +42,15 @@ function Countdown() {
             padding: '10px 16px',
             minWidth: '64px'
           }}>
-            <span style={{
-              fontFamily: 'Space Mono', fontSize: '28px', fontWeight: 500,
-              color: '#e8f5e9', lineHeight: 1
-            }}>
+            <span className={styles.countdownValue}>
               {String(value ?? 0).padStart(2, '0')}
             </span>
-            <span style={{
-              fontSize: '11px', color: 'rgba(255,255,255,0.55)',
-              marginTop: '4px', letterSpacing: '0.06em'
-            }}>
+            <span className={styles.countdownLabel}>
               {label}
             </span>
           </div>
           {i < units.length - 1 && (
-            <span key={`sep-${i}`} style={{
-              fontFamily: 'Space Mono', fontSize: '24px',
-              color: 'rgba(255,255,255,0.35)', alignSelf: 'center', marginTop: '-8px'
-            }}>:</span>
+            <span className={styles.countdownSeparator}>:</span>
           )}
         </>
       ))}
