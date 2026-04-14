@@ -84,9 +84,7 @@ function DNE() {
   return (
 
     
-    <div style={{
-        backgroundColor: '#e8e6e0'
-      }}>
+    <div style={{ backgroundColor: '#e8e6e0'}}>
       <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
         <div style={{ 
             maxWidth: '800px', 
@@ -213,7 +211,6 @@ function DNE() {
                         fontSize: '14px',
                         color: '#4b5563',
 
-                        // ✨ animación interna
                         opacity: isOpen ? 1 : 0,
                         transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
                         transition: 'all 0.25s ease 0.1s'
@@ -233,7 +230,7 @@ function DNE() {
       </section>
 
       <section 
-        style={{ padding: '4rem 10rem' }}
+        className={styles.sectionWide}
       >        
       <div style={{
             background: '#f5eee2',
