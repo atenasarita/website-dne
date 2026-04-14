@@ -84,7 +84,7 @@ function TipBanner({ text }) {
       display: 'flex', alignItems: 'flex-start', gap: '10px',
       borderRadius: '8px', padding: '0.75rem 1rem', marginTop: '0.75rem'
     }}>
-    <Lightbulb />
+      <Lightbulb />
       <span style={{ fontSize: '13px', color: 'var(--color-text-info)', lineHeight: 1.5 }}>{text}</span>
     </div>
   );
@@ -137,12 +137,18 @@ function CategoryPanel({ catId }) {
         <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: c.color, flexShrink: 0 }} />
         <div>
           <div style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)' }}>{c.nombre}</div>
-          <div style={{ fontSize: '12px', color: 'var(--color-text-tertiary)' }}>{c.pantone} · {c.desc}</div>
+          {/* Fix 1: desc wraps on mobile — allow it to wrap naturally */}
+          <div style={{ fontSize: '12px', color: 'var(--color-text-tertiary)', lineHeight: 1.5 }}>{c.pantone} · {c.desc}</div>
         </div>
       </div>
 
-      {/* Sí / No columns */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '0.75rem' }}>
+      {/* Fix 2: Sí/No columns — collapse to 1 column on narrow screens */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
+        gap: '1rem',
+        marginBottom: '0.75rem'
+      }}>
         {[{ label: 'Sí va aquí', dot: '#52B788', items: c.si, type: 'si' },
           { label: 'No va aquí', dot: '#E24B4A', items: c.no, type: 'no' }].map(col => (
           <div key={col.label} style={{
@@ -155,7 +161,7 @@ function CategoryPanel({ catId }) {
               padding: '0.875rem 1.25rem',
               borderBottom: '0.5px solid var(--color-border-tertiary)'
             }}>
-              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: col.dot }} />
+              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: col.dot, flexShrink: 0 }} />
               <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--color-text-primary)' }}>{col.label}</span>
             </div>
             <div style={{ padding: '0.5rem 1.25rem' }}>
@@ -178,7 +184,8 @@ function CategoryPanel({ catId }) {
           }}>
             Casos especiales de la comunidad Tec
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+          {/* Fix 3: especiales grid — safer minmax */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '0.75rem' }}>
             {c.especiales.map((e, i) => (
               <div key={i} style={{
                 background: 'var(--color-background-primary)',
@@ -224,15 +231,18 @@ function SearchResults({ query }) {
       borderRadius: '12px', overflow: 'hidden'
     }}>
       {matches.map((r, i) => (
+
+        // wrap para mobile
         <div key={i} style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
+          display: 'flex', alignItems: 'flex-start', gap: '12px',
           padding: '0.75rem 1.25rem',
           borderBottom: i < matches.length - 1 ? '0.5px solid var(--color-border-tertiary)' : 'none',
-          fontSize: '13px'
+          fontSize: '13px',
+          flexWrap: 'wrap'
         }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: r.color, flexShrink: 0 }} />
-          <span style={{ flex: 1, color: 'var(--color-text-primary)' }}>{r.item}</span>
-          <span style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', whiteSpace: 'nowrap' }}>
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: r.color, flexShrink: 0, marginTop: '3px' }} />
+          <span style={{ flex: 1, minWidth: '120px', color: 'var(--color-text-primary)' }}>{r.item}</span>
+          <span style={{ fontSize: '11px', color: 'var(--color-text-tertiary)' }}>
             {r.cat} · {typeLabel[r.type]}
           </span>
         </div>
@@ -243,15 +253,13 @@ function SearchResults({ query }) {
 
 function Reciclatec() {
   const [isVisible, setIsVisible] = useState({
-      hero: false,
-      intro: false,
-    });
+    hero: false,
+    intro: false,
+  });
 
   const [selectedCat, setSelectedCat] = useState('organico');
   const [query, setQuery] = useState('');
-
   const [scrollY, setScrollY] = useState(0);
-  
 
   const handleSearch = useCallback((e) => setQuery(e.target.value), []);
   const isSearching = query.trim().length > 0;
@@ -265,80 +273,73 @@ function Reciclatec() {
   ];
 
   useEffect(() => {
-      // HERO ON LOAD
-      setTimeout(() => {
-        setIsVisible(prev => ({ ...prev, hero: true }));
-      }, 100);
-  
-      // SCROLL OBSERVER
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const section = entry.target.getAttribute('data-section');
-            setIsVisible(prev => ({ ...prev, [section]: true }));
-          }
-        });
-      }, { threshold: 0.1 });
-  
-      document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
-  
-      // Parallax scroll effect
-      const handleScroll = () => {
-        setScrollY(window.scrollY);
-      };
-  
-      // Mouse move effect for hero
-      window.addEventListener('scroll', handleScroll);
-  
-      return () => {
-        observer.disconnect();
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
+    setTimeout(() => {
+      setIsVisible(prev => ({ ...prev, hero: true }));
+    }, 100);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target.getAttribute('data-section');
+          setIsVisible(prev => ({ ...prev, [section]: true }));
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div>
-      {/* Hero */}
+      
       <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{ 
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 10,
-          transform: `translateY(${scrollY * 0.3}px)`
-        }}>          
-        <h1 className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}>Reciclatec</h1>
+        <div style={{ transform: `translateY(${scrollY * 0.3}px)`, willChange: 'transform' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+            <h1 className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}>
+              Reciclatec
+            </h1>
 
-        <Countdown className={`${isVisible.hero ? styles.fadeIn : styles.hidden}`}/>
+            <Countdown className={`${isVisible.hero ? styles.fadeIn : styles.hidden}`} />
 
-        <p style={{
-          fontFamily: 'Space Mono',
-          fontSize: '16px',
-          color: 'rgba(255,255,255,0.75)',
-          marginTop: '0.75rem',
-          letterSpacing: '0.04em',
-          animationDelay: '0.2s'
-        }}
-        className={`${isVisible.hero ? styles.fadeIn : styles.hidden}`}>
-          Miércoles 22 de abril  Pasillo DAF · Campus Monterrey
-        </p>
+            <p
+              className={`${styles.subtitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}
+            >
+              Miércoles 22 de abril · Pasillo DAF · Campus Monterrey
+            </p>
+          </div>
         </div>
       </section>
 
-      <div style={{ maxWidth: '900px', margin: '0 auto', marginTop: '4rem' }}>
-          <h2 className={styles.heading2} style={{ marginBottom: '1rem' }}>¿Qué es?</h2>
-          <p className={styles.bodyText} style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)' }}>
-            Reciclatec es el evento anual de reciclaje y separación de residuos de la comunidad del Tec de Monterrey Campus Monterrey. Durante este día, estudiantes, profesores y colaboradores traen sus residuos reciclables al campus para darles una disposición adecuada, reducir el impacto ambiental y fortalecer la cultura de sustentabilidad del Tec. Este año será el miércoles 22 de abril.
-          </p>
-          
+      <section data-section='intro'> 
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '4rem 4rem 0' }}>
+        <h2 className={`${styles.heading2} ${isVisible.intro ? styles.fadeInUp : styles.hidden}`} style={{ marginBottom: '1rem' }}>
+          ¿Qué es?
+        </h2>
+        <p className={`${styles.bodyText} ${isVisible.intro ? styles.fadeInUp : styles.hidden}`} style={{ marginBottom: '1rem' }}>
+          Reciclatec es el evento anual de reciclaje y separación de residuos de la comunidad del Tec de Monterrey Campus Monterrey. Durante este día, estudiantes, profesores y colaboradores traen sus residuos reciclables al campus para darles una disposición adecuada, reducir el impacto ambiental y fortalecer la cultura de sustentabilidad del Tec. Este año será el miércoles 22 de abril.
+        </p>
       </div>
-
+      </section>
 
       {/* Search */}
-      <section style={{ padding: '4rem 1.5rem'}}>
-
-        <div style={{ maxWidth: '900px', margin: '0 auto', marginBottom: '4rem', backgroundColor: '#f2ece0', padding: '2rem', borderRadius: '15px' }}>
-          <h2 className={styles.heading2}>Conoce las categorías </h2>
+      <section style={{ padding: '2rem 1.5rem 4rem' }}>
+        <div style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          marginBottom: '4rem',
+          backgroundColor: '#f2ece0',
+          padding: 'clamp(1.5rem, 4vw, 2rem)',
+          borderRadius: '15px'
+        }}>
+          <h2 className={styles.heading2}>Conoce las categorías</h2>
 
           <input
             type="text"
@@ -346,67 +347,70 @@ function Reciclatec() {
             onChange={handleSearch}
             placeholder="Busca un material... ej: botella PET, cartón, lata..."
             style={{
-              width: '90%',
+              width: '100%',
+              boxSizing: 'border-box',
               padding: '10px 14px',
-              border: '0.5px solid',
-              borderRadius: '8px', fontSize: '14px',
+              border: '0.5px solid #5e3f1d',
+              borderRadius: '8px',
+              fontSize: '14px',
               color: '#5e3f1d',
-              outline: 'none', fontFamily: 'Space Mono',
+              outline: 'none',
+              fontFamily: 'Space Mono',
+              marginBottom: '1.25rem',
+              background: 'transparent',
             }}
             onFocus={e => e.target.style.borderColor = '#5e3f1d'}
             onBlur={e => e.target.style.borderColor = '#5e3f1d'}
           />
 
-      {isSearching ? (
-        <>
-          <p style={{
-            fontSize: '11px', fontWeight: 500, textTransform: 'uppercase',
-            letterSpacing: '0.08em', color: 'var(--color-text-tertiary)', marginBottom: '0.75rem'
-          }}>
-            Resultados de búsqueda
-          </p>
-          <SearchResults query={query} />
-        </>
-      ) : (
-        <>
-          {/* Category tabs */}
-          <p style={{
-            fontSize: '11px', fontWeight: 500, textTransform: 'uppercase',
-            letterSpacing: '0.08em', color: '#5e3f1d', marginBottom: '0.75rem'
-          }}>
-            Selecciona una categoría
-          </p>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedCat(tab.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '8px 14px',
-                  border: selectedCat === tab.id ? `1.5px solid ${tab.color}` : '0.5px solid var(--color-border-tertiary)',
-                  borderRadius: '20px',
-                  background: 'var(--color-background-primary)',
-                  cursor: 'pointer', fontSize: '13px',
-                  color: 'var(--color-text-primary)',
-                  fontFamily: 'NeueEinstellung',
-                  transition: 'all 0.15s'
-                }}
-              >
-                <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: tab.color, flexShrink: 0 }} />
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          {isSearching ? (
+            <>
+              <p style={{
+                fontSize: '11px', fontWeight: 500, textTransform: 'uppercase',
+                letterSpacing: '0.08em', color: 'var(--color-text-tertiary)', marginBottom: '0.75rem'
+              }}>
+                Resultados de búsqueda
+              </p>
+              <SearchResults query={query} />
+            </>
+          ) : (
+            <>
+              <p style={{
+                fontSize: '11px', fontWeight: 500, textTransform: 'uppercase',
+                letterSpacing: '0.08em', color: '#5e3f1d', marginBottom: '0.75rem'
+              }}>
+                Selecciona una categoría
+              </p>
 
-          <CategoryPanel catId={selectedCat} />
-        </>
-      )}
-      </div>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+                {tabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setSelectedCat(tab.id)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '8px',
+                      padding: '8px 14px',
+                      border: selectedCat === tab.id ? `1.5px solid ${tab.color}` : '0.5px solid var(--color-border-tertiary)',
+                      borderRadius: '20px',
+                      background: 'var(--color-background-primary)',
+                      cursor: 'pointer', fontSize: '13px',
+                      color: 'var(--color-text-primary)',
+                      fontFamily: 'NeueEinstellung',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: tab.color, flexShrink: 0 }} />
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
 
+              <CategoryPanel catId={selectedCat} />
+            </>
+          )}
+        </div>
       </section>
     </div>
-
   );
 }
 
