@@ -1,3 +1,5 @@
+/*reciclatec.module.css*/
+
 .card{
     background: #6db372;
     color: #1d2535;
@@ -7,19 +9,20 @@
     position: relative;
 }
 
-.mainTitle{
-    font-size: 82px;
+.mainTitle {
+    font-size: clamp(40px, 8vw, 82px);
     margin-bottom: 0.5rem;
     font-family: 'NeueEinstellung';
-    transition: transform 0.3s ease;
+    word-break: break-word;
 }
 
-.subtitle{
-    font-size: 20px;
+.subtitle {
+    font-size: clamp(14px, 4vw, 20px);
     opacity: 0.95;
     margin-bottom: 2rem;
     font-weight: 400;
     font-family: 'Space Mono', monospace;
+    line-height: 1.6;
 }
 
 .secondary{
@@ -69,18 +72,18 @@
     height: 300px;
 }
 
-
-.heading2{
+.heading2 {
     font-family: 'NeueEinstellung';
-    font-size: 28px;
+    font-size: clamp(20px, 3vw, 28px);
     margin-bottom: 1rem;
     color: #0f1829;
 }
 
-.heading3{
+.heading3 {
     font-family: 'Space Mono', monospace;
-    font-size: 20px;
+    font-size: clamp(16px, 2.5vw, 20px);
     margin-bottom: 0.5rem;
+    line-height: 1.5;
 }
 
 .secondaryText{
@@ -137,4 +140,32 @@
 .fadeInUp {
   opacity: 0;
   animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+
+.slideInLeft {
+    animation: slideInLeft 0.7s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.hiddenLeft {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+@media (max-width: 768px) {
+    .mainTitle {
+        line-height: 1.1;
+    }
+    .subtitle {
+        margin-bottom: 1.5rem;
+    }
+    .linkButton {
+        width: auto;
+        padding: 12px 20px;
+    }
 }

@@ -1,3 +1,4 @@
+/*aprende.module.css*/
 .card{
     background: #a8d5f5;
     color: #203b5d;
@@ -8,14 +9,15 @@
 }
 
 .mainTitle{
-    font-size: 96px;
+    font-size: clamp(40px, 8vw, 96px);
     margin-bottom: 1rem;
     font-family: 'NeueEinstellung';
     transition: transform 0.3s ease;
+    word-break: break-word;
 }
 
 .subtitle{
-    font-size: 20px;
+    font-size: clamp(14px, 4vw, 20px);
     opacity: 0.95;
     margin-bottom: 2rem;
     font-weight: 400;
@@ -29,63 +31,9 @@
     margin-bottom: 4rem;
 }
 
-.linkButton{
-    display: inline-block;
-    background-color: #74c0fc;
-    border: none;
-    color: #1c3a5e;
-    padding: 12px 32px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-family: 'DM Sans', sans-serif;
-    position: relative;
-    overflow: hidden;
-}
-
-.linkButton:hover {
-    background-color: #5ca3d9;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(116, 192, 252, 0.5);
-}
-
-.linkButton::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.linkButton:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-/* Pulse animation for button */
-.pulseButton {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(116, 192, 252, 0.7);
-    }
-    50% {
-        box-shadow: 0 0 0 10px rgba(116, 192, 252, 0.7);
-    }
-}
-
 .heading2{
     font-family: 'NeueEinstellung';
-    font-size: 28px;
+    font-size: clamp(20px, 3vw, 28px);
     margin-bottom: 1rem;
     color: #0f1829;
 }
@@ -93,7 +41,7 @@
 .heading3{
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
-    font-size: 20px;
+    font-size: clamp(16px, 2.5vw, 20px);
     margin-bottom: 0.5rem;
 }
 
@@ -110,6 +58,12 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+.resourcesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1rem;
+    margin-bottom: 6rem;
+}
 
 /* Scale In Animation */
 .scaleIn {
@@ -161,61 +115,14 @@
     transition: opacity 0.3s ease;
 }
 
-
-
-.linkButton::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
-    transition: left 0.5s;
-}
-
-.linkButton:hover::after {
-    left: 100%;
-}
-
-/* Glow effect on hover */
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(116, 192, 252, 0.5),
-                    0 0 10px rgba(116, 192, 252, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 10px rgba(116, 192, 252, 0.8),
-                    0 0 20px rgba(116, 192, 252, 0.5);
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .mainTitle {
-        font-size: 56px;
+    line-height: 1.1;
     }
     
     .subtitle {
-        font-size: 16px;
-    }
-    
-    .heading2 {
-        font-size: 24px;
-    }
-
-    .bgCircle {
-        width: 200px;
-        height: 200px;
-    }
-
-    .floatingIcon {
-        font-size: 32px;
+        margin-bottom: 1.5rem;
     }
 }
 
@@ -246,8 +153,6 @@ html {
         background-position: calc(200px + 100%) 0;
     }
 }
-
-
 
 
 @keyframes fadeIn {
@@ -303,4 +208,11 @@ html {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+@media (max-width: 900px) {
+  .resourcesGrid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
 }

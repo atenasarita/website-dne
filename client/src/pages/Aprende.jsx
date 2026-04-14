@@ -6,28 +6,30 @@ function MapaReciclatec() {
   return (
     <div style={{
       borderRadius: '15px',
-      border: '0.5px solid var(--color-border-tertiary)',
       overflow: 'hidden',
       marginBottom: '6rem',
     }}>
     
       <div style={{
         padding: '1.25rem 1.5rem',
-        borderBottom: '0.5px solid var(--color-border-tertiary)'
       }}>
         <h2 className={styles.heading2}>
           Donde dejar tus residuos alrededor del campus
         </h2>
       </div>
       <iframe
-        src="https://www.google.com/maps/d/u/0/embed?mid=1UW4MbluNCQSj-VJBhREE5F_ZlWEVVa0&ll=25.652851064367894,-100.288378&z=16"
-        width="100%"
-        height="480"
-        style={{ display: 'block', border: 'none' }}
-        title="Mapa de puntos de recolección Reciclatec"
-        loading="lazy"
-        allowFullScreen
-      />
+          src="https://www.google.com/maps/d/u/0/embed?mid=1UW4MbluNCQSj-VJBhREE5F_ZlWEVVa0&ll=25.652851064367894,-100.288378&z=16"
+          width="100%"
+          height="380"           
+          style={{
+            display: 'block',
+            border: 'none',
+            minHeight: '280px'  
+          }}
+          title="Mapa de puntos de recolección Reciclatec"
+          loading="lazy"
+          allowFullScreen
+        />
     </div>
   );
 }
@@ -126,25 +128,22 @@ function Aprende() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className={styles.card} data-section="hero" style={{ position: 'relative', overflow: 'hidden' }} >
-        <div style={{ 
-          maxWidth: '800px', 
-          margin: '0 auto', 
-          position: 'relative', 
-          zIndex: 10,
-          transform: `translateY(${scrollY * 0.3}px)`
-        }}>
-          <h1 className={`${styles.mainTitle} ${ isVisible.hero ? styles.fadeIn : styles.hidden }`} style={{ animationDelay: '0.1s' }}>            
+      {/* hero */}
+      <section className={styles.card} style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ transform: `translateY(${scrollY * 0.3}px)`, willChange: 'transform' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+            <h1 className={`${styles.mainTitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}
+                style={{ animationDelay: '0.1s' }}>
               Aprende
-          </h1>
-          <p className={`${styles.subtitle} ${ isVisible.hero ? styles.fadeIn : styles.hidden }`}>
-            No tienes que esperar a Reciclatec para educarte y ser parte del cambio!
-          </p>
+            </h1>
+            <p className={`${styles.subtitle} ${isVisible.hero ? styles.fadeIn : styles.hidden}`}>
+              No tienes que esperar a Reciclatec para educarte y ser parte del cambio!
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Main content */}
+      {/* main content */}
       <section style={{ padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
 
@@ -163,61 +162,60 @@ function Aprende() {
           </div>
 
           {/* Mapa */}
-          <div  data-section='mapa' className={`${ isVisible.hero ? styles.slideInLeft : styles.hidden }`} style={{ animationDelay: '0.2s' }}>
+          <div data-section='mapa'
+              className={`${isVisible.mapa ? styles.fadeInUp : styles.hidden}`}
+              style={{ padding: '0 1.5rem',  animationDelay: '0.2s' }}> 
             <MapaReciclatec />
           </div>
 
-          <div data-section='resources'className={`${isVisible.resources ? styles.fadeInUp : styles.hidden}`}> 
-          <p className={styles.heading2}>
+          <div data-section='resources'className={` ${isVisible.resources ? styles.fadeInUp : styles.hidden}`} style={{ padding: '0 1.5rem' }}> 
+          <p className={styles.heading2} style={{ marginBottom: '2rem' }}>
             Recursos disponibles
           </p>
 
           {/* Resource cards grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-            gap: '1rem',
-            marginBottom: '6rem'
-          }}>
+          <section >
+            <div className={styles.resourcesGrid}>
 
-            <ResourceCard
-              title="Taylor & Francis Online"
-              description="Plataforma con millones de artículos académicos, revistas científicas y libros revisados por pares sobre casi todas las áreas del conocimiento."
-              icon={<Library />}
-              href="https://www.tandfonline.com"
-              badge="300k+ artículos"
-            />
+              <ResourceCard
+                title="Taylor & Francis Online"
+                description="Plataforma con millones de artículos académicos, revistas científicas y libros revisados por pares sobre casi todas las áreas del conocimiento."
+                icon={<Library />}
+                href="https://www.tandfonline.com"
+                badge="300k+ artículos"
+              />
 
-            <ResourceCard
-              title="Biblioteca Digital Tec"
-              description="Accede a todos los recursos académicos del Tec de Monterrey disponibles para la comunidad estudiantil, incluyendo bases de datos, ebooks y más."
-              icon={<BookOpen />}
-              href="https://biblioteca.tec.mx"
-              badge="Acceso con matrícula"
-            />
+              <ResourceCard
+                title="Biblioteca Digital Tec"
+                description="Accede a todos los recursos académicos del Tec de Monterrey disponibles para la comunidad estudiantil, incluyendo bases de datos, ebooks y más."
+                icon={<BookOpen />}
+                href="https://biblioteca.tec.mx"
+                badge="Acceso con matrícula"
+              />
 
-            <ResourceCard
-              title="Guías y tutoriales"
-              description="Aprende a usar las herramientas de investigación académica disponibles en el campus para sacarles el mayor provecho."
-              icon={<GraduationCap />}
-              badge="Próximamente"
-              extra={
-                <div style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '0.75rem 1rem',
-                  background: 'rgba(32,59,93,0.06)',
-                  borderRadius: '10px',
-                  border: '0.5px dashed rgba(32,59,93,0.2)'
-                }}>
-                  <PlayCircle size={18} color="#829bb3" />
-                  <span style={{ fontSize: '13px', color: 'var(--color-text-tertiary)' }}>
-                    Video tutorial disponible próximamente
-                  </span>
-                </div>
-              }
-            />
+              <ResourceCard
+                title="Guías y tutoriales"
+                description="Aprende a usar las herramientas de investigación académica disponibles en el campus para sacarles el mayor provecho."
+                icon={<GraduationCap />}
+                badge="Próximamente"
+                extra={
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '8px',
+                    padding: '0.75rem 1rem',
+                    background: 'rgba(32,59,93,0.06)',
+                    borderRadius: '10px',
+                    border: '0.5px dashed rgba(32,59,93,0.2)'
+                  }}>
+                    <PlayCircle size={18} color="#829bb3" />
+                    <span style={{ fontSize: '13px', color: 'var(--color-text-tertiary)' }}>
+                      Video tutorial disponible próximamente
+                    </span>
+                  </div>
+                }
+              />
 
-          </div>
+            </div>
+          </section>
 
           </div>
 
