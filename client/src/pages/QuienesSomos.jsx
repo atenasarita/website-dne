@@ -37,7 +37,6 @@ const embajadores = [
 function QuienesSomos() {
   const [filtroEscuela, setFiltroEscuela] = useState("Todas");
   const [scrollY, setScrollY] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const [isVisible, setIsVisible] = useState({
     hero: false,
@@ -73,20 +72,11 @@ function QuienesSomos() {
 
     const handleScroll = () => setScrollY(window.scrollY);
 
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX - window.innerWidth / 2) / 50,
-        y: (e.clientY - window.innerHeight / 2) / 50,
-      });
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
