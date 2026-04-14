@@ -52,7 +52,7 @@ const pilares = [
     id: 'vinculacion',
     icon: <Globe size={28} color="#fff" />,
     title: 'Vinculación',
-    color: '#f79220',
+    color: '#c0392b',
     mision: 'Catalizar la acción climática en la sociedad en su conjunto.',
     objetivo: 'Al 2025: Ser uno de los actores principales en la movilización hacia la acción climática en el país.',
     areas: ['Oferta educativa', 'Alianzas y redes', 'Proyectos', 'Involucramiento'],
@@ -66,7 +66,7 @@ function PilarCard({ pilar }) {
   return (
     <div
       style={{
-        background: '#1c3a5e',
+        background: '#e8e6e0',
         borderRadius: '12px',
         border: '0.5px solid rgba(255,255,255,0.08)',
         overflow: 'hidden',
@@ -101,7 +101,7 @@ function PilarCard({ pilar }) {
           <h3 style={{
             fontSize: '20px',
             fontWeight: 500,
-            color: '#5ca3d9',
+            color: '#203b5d',
             fontFamily: 'NeueEinstellung',
             margin: 0,
             transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
@@ -141,7 +141,7 @@ function PilarCard({ pilar }) {
                 Misión
               </span>
             </div>
-            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#c8d8e8', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#203b5d', lineHeight: 1.6, margin: 0 }}>
               {pilar.mision}
             </p>
           </div>
@@ -154,7 +154,7 @@ function PilarCard({ pilar }) {
                 Objetivo
               </span>
             </div>
-            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#c8d8e8', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontFamily: 'Space Mono', fontSize: '13px', color: '#203b5d', lineHeight: 1.6, margin: 0 }}>
               {pilar.objetivo}
             </p>
           </div>
@@ -172,7 +172,7 @@ function PilarCard({ pilar }) {
                 <span key={i} style={{
                   fontSize: '12px',
                   fontFamily: 'DM Sans',
-                  color: '#f8f8f5',
+                  color: '#203b5d',
                   background: `${pilar.color}33`,
                   border: `0.5px solid ${pilar.color}66`,
                   borderRadius: '20px',
@@ -214,7 +214,7 @@ function RutaAzul() {
 
         {/* Pilares expandibles */}
         <div style={{
-          background: '#f5eee2',
+          background: '#829bb3',
           padding: '2rem',
           borderRadius: '12px',
           maxWidth: '1000px',
@@ -223,7 +223,7 @@ function RutaAzul() {
           <h2 className={styles.heading2} style={{ marginBottom: '0.5rem' }}>
             Ejes de acción estratégica
           </h2>
-          <p style={{ fontFamily: 'DM Sans', fontSize: '14px', color: '#6b7280', marginBottom: '1.5rem' }}>
+          <p style={{ fontFamily: 'DM Sans', fontSize: '14px', color: '#1c3a5e', marginBottom: '1.5rem' }}>
             Haz clic en cada pilar para conocer más detalles.
           </p>
           <div style={{
@@ -239,18 +239,18 @@ function RutaAzul() {
 
         {/* CTA */}
         <div style={{
-          background: 'var(--color-background-info)',
-          borderRadius: 'var(--border-radius-lg)',
+          background: '#f5eee2',
+          borderRadius: '15px',
           padding: '2rem',
           textAlign: 'center',
-          border: '0.5px solid var(--color-border-info)',
+          border: '0.5px solid #c69a6d',
           maxWidth: '1000px',
           margin: '0 auto',
         }}>
-          <h3 className={styles.heading3} style={{ marginBottom: '1rem', color: 'var(--color-text-info)' }}>
+          <h3 className={styles.heading3}>
             Conoce más sobre Ruta Azul
           </h3>
-          <p className={styles.bodyText} style={{ color: 'var(--color-text-info)', marginBottom: '1.5rem' }}>
+          <p className={styles.bodyText}>
             Visita el sitio oficial para conocer a detalle nuestras iniciativas y compromisos de sostenibilidad.
           </p>
           <a href="https://tec.mx/es/florecimiento-humano/desarrollo-sostenible/ruta-azul"
